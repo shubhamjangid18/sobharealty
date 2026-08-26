@@ -1,44 +1,447 @@
+/* ════════════════════════════════════════
+   PREMIUM PROJECT MARQUEE
+   Infinite / Smooth / No Scrollbar
+   ════════════════════════════════════════ */
+
 .marquee {
+  position: relative;
+
+  width: 100%;
+
+  padding: 21px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.018),
+      transparent 50%,
+      rgba(255, 255, 255, 0.012)
+    ),
+    var(--ink-soft);
+
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+
   overflow: hidden;
-  background: var(--ink-soft);
-  padding: 22px 0;
+
+  isolation: isolate;
 }
+
+
+/* ════════════════════════════════════════
+   VIEWPORT
+════════════════════════════════════════ */
+
+.marquee__viewport {
+  width: 100%;
+
+  overflow: hidden;
+
+  /* Prevent horizontal page scrolling */
+  overscroll-behavior-x: none;
+
+  -webkit-mask-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+}
+
+
+/* ════════════════════════════════════════
+   TRACK
+════════════════════════════════════════ */
 
 .marquee__track {
   display: flex;
+
   width: max-content;
-  animation: marqueeScroll 32s linear infinite;
+
+  align-items: center;
+
+  will-change: transform;
+
+  animation:
+    marqueeScroll 32s
+    linear
+    infinite;
 }
+
+
+/* Pause only when user intentionally
+   interacts with the marquee */
 
 .marquee:hover .marquee__track {
   animation-play-state: paused;
 }
 
+
+/* ════════════════════════════════════════
+   ITEM
+════════════════════════════════════════ */
+
 .marquee__item {
+  position: relative;
+
   display: inline-flex;
+
   align-items: center;
-  gap: 32px;
-  padding: 0 32px;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 22px;
-  color: var(--ivory-dim);
+
+  gap: 30px;
+
+  padding: 0 30px;
+
   white-space: nowrap;
+
+  flex-shrink: 0;
 }
 
-.marquee__item em {
-  font-style: normal;
-  font-size: 10px;
-  color: var(--brass);
+
+/* ════════════════════════════════════════
+   PROJECT NAME
+════════════════════════════════════════ */
+
+.marquee__name {
+  position: relative;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(18px, 2vw, 23px);
+
+  font-weight: 400;
+
+  font-style: italic;
+
+  letter-spacing: -0.015em;
+
+  color: var(--ivory-dim);
+
+  transition:
+    color 0.35s ease,
+    text-shadow 0.35s ease,
+    transform 0.45s
+      cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+
+/* Subtle underline */
+
+.marquee__name::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -5px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--brass);
+
+  transition:
+    width 0.45s
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ════════════════════════════════════════
+   DIAMOND
+════════════════════════════════════════ */
+
+.marquee__diamond {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 6px;
+  height: 6px;
+
+  font-size: 7px;
+
+  color: var(--brass);
+
+  opacity: 0.65;
+
+  transform: rotate(0deg);
+
+  text-shadow:
+    0 0 12px
+    rgba(180, 145, 80, 0.35);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s
+      cubic-bezier(0.16, 1, 0.3, 1),
+    text-shadow 0.35s ease;
+}
+
+
+/* ════════════════════════════════════════
+   HOVER
+════════════════════════════════════════ */
+
+.marquee__item:hover .marquee__name {
+  color: var(--ivory);
+
+  transform: translateY(-1px);
+
+  text-shadow:
+    0 0 24px
+    rgba(180, 145, 80, 0.12);
+}
+
+.marquee__item:hover .marquee__name::after {
+  width: 100%;
+}
+
+.marquee__item:hover .marquee__diamond {
+  opacity: 1;
+
+  transform:
+    rotate(45deg)
+    scale(1.25);
+
+  text-shadow:
+    0 0 16px
+    rgba(180, 145, 80, 0.6);
+}
+
+
+/* ════════════════════════════════════════
+   EDGE FADE
+════════════════════════════════════════ */
+
+.marquee__fade {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 120px;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+
+.marquee__fade--left {
+  left: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--ink-soft),
+      transparent
+    );
+}
+
+
+.marquee__fade--right {
+  right: 0;
+
+  background:
+    linear-gradient(
+      270deg,
+      var(--ink-soft),
+      transparent
+    );
+}
+
+
+/* ════════════════════════════════════════
+   AMBIENT GLOW
+════════════════════════════════════════ */
+
+.marquee__glow {
+  position: absolute;
+
+  top: 50%;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  transform: translateY(-50%);
+
+  filter: blur(55px);
+
+  opacity: 0.5;
+}
+
+
+.marquee__glow--left {
+  left: -120px;
+
+  background:
+    rgba(180, 145, 80, 0.07);
+}
+
+
+.marquee__glow--right {
+  right: -120px;
+
+  background:
+    rgba(180, 145, 80, 0.05);
+}
+
+
+/* ════════════════════════════════════════
+   INFINITE ANIMATION
+════════════════════════════════════════ */
 
 @keyframes marqueeScroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
+
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+
+/* ════════════════════════════════════════
+   TABLET
+════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .marquee {
+    padding: 19px 0;
+  }
+
+  .marquee__item {
+    gap: 25px;
+
+    padding: 0 25px;
+  }
+
+  .marquee__fade {
+    width: 90px;
+  }
+
+  .marquee__track {
+    animation-duration: 28s;
+  }
+}
+
+
+/* ════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+
+  .marquee {
+    padding: 17px 0;
+  }
+
+  .marquee__viewport {
+    -webkit-mask-image:
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        #000 12%,
+        #000 88%,
+        transparent 100%
+      );
+
+    mask-image:
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        #000 12%,
+        #000 88%,
+        transparent 100%
+      );
+  }
+
+  .marquee__item {
+    gap: 21px;
+
+    padding: 0 21px;
+  }
+
+  .marquee__name {
+    font-size: 17px;
+  }
+
+  .marquee__diamond {
+    font-size: 6px;
+  }
+
+  .marquee__fade {
+    width: 65px;
+  }
+
+  .marquee__track {
+    animation-duration: 24s;
+  }
+}
+
+
+/* ════════════════════════════════════════
+   SMALL MOBILE
+════════════════════════════════════════ */
+
+@media (max-width: 390px) {
+
+  .marquee {
+    padding: 15px 0;
+  }
+
+  .marquee__item {
+    gap: 18px;
+
+    padding: 0 18px;
+  }
+
+  .marquee__name {
+    font-size: 16px;
+  }
+
+  .marquee__track {
+    animation-duration: 22s;
+  }
+
+  .marquee__fade {
+    width: 50px;
+  }
+}
+
+
+/* ════════════════════════════════════════
+   REDUCED MOTION
+════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .marquee__track {
+    animation: none;
+  }
+
+  .marquee__name,
+  .marquee__diamond {
+    transition: none;
   }
 }

@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 import useReveal from "../hooks/useReveal";
 import "./Pillars.css";
 
-// Small inline icons — kept as simple stroke paths (no icon library
-// dependency) so each pillar gets a distinct visual anchor instead of
-// just a numeral.
 const ICONS = {
   craft: (
     <svg viewBox="0 0 40 40" fill="none">
@@ -50,21 +47,18 @@ const ICONS = {
 
 const PILLARS = [
   {
-    step: "01",
     icon: "craft",
     title: "Craftsmanship",
     body:
       "Every material, texture and finish is selected and inspected by hand — down to the hinge, the tile grout and the window frame. Nothing ships unless it meets the standard we'd accept in our own homes.",
   },
   {
-    step: "02",
     icon: "design",
     title: "Thoughtful Design",
     body:
       "A home is not a structure; it is a piece of considered architecture. Layouts are stress-tested against how people actually live, then subjected to rigorous quality review at every stage of construction.",
   },
   {
-    step: "03",
     icon: "quality",
     title: "Signature Quality",
     body:
@@ -75,8 +69,6 @@ const PILLARS = [
 function PillarCard({ p, i, inView }) {
   const cardRef = useRef(null);
 
-  // Cursor-tracked spotlight — set as CSS custom properties directly on
-  // the node so the glow follows the mouse without a re-render per pixel.
   const handleMouseMove = (e) => {
     const el = cardRef.current;
     if (!el) return;
@@ -92,34 +84,47 @@ function PillarCard({ p, i, inView }) {
       ref={cardRef}
       className="pillar"
       onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 44 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.8,
+        duration: 0.85,
         ease: [0.16, 1, 0.3, 1],
         delay: 0.15 + i * 0.12,
       }}
       whileHover={{ y: -10 }}
     >
-      <span className="pillar__watermark">{p.step}</span>
       <span className="pillar__spotlight" />
+      <span className="pillar__glow-border" />
 
       <motion.span
         className="pillar__icon"
-        initial={{ opacity: 0, scale: 0.6, rotate: -12 }}
+        initial={{ opacity: 0, scale: 0.5, rotate: -16 }}
         animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
         transition={{
-          duration: 0.7,
+          duration: 0.75,
           ease: [0.16, 1, 0.3, 1],
           delay: 0.28 + i * 0.12,
         }}
+        whileHover={{ rotate: 8, scale: 1.08 }}
       >
         {ICONS[p.icon]}
+        <span className="pillar__icon-ring" />
       </motion.span>
 
-      <span className="pillar__step">{p.step}</span>
-      <h3>{p.title}</h3>
-      <p>{p.body}</p>
+      <motion.h3
+        initial={{ opacity: 0, y: 14 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.36 + i * 0.12 }}
+      >
+        {p.title}
+      </motion.h3>
+      <motion.p
+        initial={{ opacity: 0, y: 14 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.44 + i * 0.12 }}
+      >
+        {p.body}
+      </motion.p>
 
       <motion.div
         className="pillar__line"
@@ -129,7 +134,8 @@ function PillarCard({ p, i, inView }) {
         style={{ transformOrigin: "left" }}
       />
 
-      <span className="pillar__corner" />
+      <span className="pillar__corner pillar__corner--tr" />
+      <span className="pillar__corner pillar__corner--bl" />
     </motion.article>
   );
 }
@@ -158,8 +164,6 @@ export default function Pillars() {
           </motion.h2>
         </div>
 
-        {/* Progress timeline — a quiet visual echo of "Concept to
-            Completion", filling left-to-right as the section reveals. */}
         <div className="pillars__timeline" aria-hidden="true">
           <motion.span
             className="pillars__timeline-fill"
@@ -170,7 +174,7 @@ export default function Pillars() {
           />
           {PILLARS.map((p, i) => (
             <motion.span
-              key={p.step}
+              key={p.title}
               className="pillars__timeline-dot"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
@@ -185,7 +189,7 @@ export default function Pillars() {
 
         <div className="pillars__list">
           {PILLARS.map((p, i) => (
-            <PillarCard p={p} i={i} inView={inView} key={p.step} />
+            <PillarCard p={p} i={i} inView={inView} key={p.title} />
           ))}
         </div>
       </div>

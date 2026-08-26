@@ -15,8 +15,6 @@
   font-size: clamp(30px, 3.6vw, 46px);
 }
 
-/* --- Progress timeline: a thin track with a filling brass line and a dot
-   per stage, echoing "Concept to Completion" visually. --- */
 .pillars__timeline {
   position: relative;
   height: 1px;
@@ -60,7 +58,7 @@
 
 .pillar {
   background: var(--ink-soft);
-  padding: 44px 36px 52px;
+  padding: 48px 36px 56px;
   position: relative;
   overflow: hidden;
   transition: background var(--dur-med) var(--ease-premium),
@@ -74,16 +72,14 @@
   box-shadow: inset 0 1px 0 rgba(201, 162, 98, 0.25);
 }
 
-/* Cursor-tracked glow — invisible until hover, then follows the mouse
-   via the --spot-x/--spot-y custom properties set in JS. */
 .pillar__spotlight {
   position: absolute;
   inset: 0;
   z-index: 0;
   opacity: 0;
   background: radial-gradient(
-    260px circle at var(--spot-x) var(--spot-y),
-    rgba(201, 162, 98, 0.12),
+    280px circle at var(--spot-x) var(--spot-y),
+    rgba(201, 162, 98, 0.14),
     transparent 65%
   );
   transition: opacity var(--dur-med) var(--ease-premium);
@@ -94,25 +90,18 @@
   opacity: 1;
 }
 
-/* Oversized ghost numeral behind the content — a quiet editorial texture,
-   like a page folio mark, rather than decoration for its own sake. */
-.pillar__watermark {
+/* Soft brass edge-glow that fades in around the card border on hover */
+.pillar__glow-border {
   position: absolute;
-  top: -0.12em;
-  right: 12px;
+  inset: 0;
   z-index: 0;
-  font-family: var(--font-display);
-  font-size: 128px;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(243, 239, 228, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 98, 0);
+  transition: box-shadow var(--dur-med) var(--ease-premium);
   pointer-events: none;
-  user-select: none;
-  transition: -webkit-text-stroke-color var(--dur-med) var(--ease-premium);
 }
 
-.pillar:hover .pillar__watermark {
-  -webkit-text-stroke-color: rgba(201, 162, 98, 0.16);
+.pillar:hover .pillar__glow-border {
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 98, 0.22);
 }
 
 .pillar__icon {
@@ -121,39 +110,55 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   border: 1px solid var(--line-strong);
+  border-radius: 50%;
   color: var(--brass-light);
-  transition: border-color var(--dur-med) var(--ease-premium),
-    transform var(--dur-med) var(--ease-premium);
+  transition: border-color var(--dur-med) var(--ease-premium);
 }
 
 .pillar__icon svg {
   width: 22px;
   height: 22px;
+  position: relative;
+  z-index: 1;
 }
 
 .pillar:hover .pillar__icon {
   border-color: var(--brass);
-  transform: translateY(-2px);
 }
 
-.pillar__step {
-  position: relative;
-  z-index: 1;
-  display: block;
-  margin-top: 20px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--brass);
-  letter-spacing: 0.1em;
+/* Expanding ring that pulses out from the icon on hover */
+.pillar__icon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--brass-light);
+  opacity: 0;
+  transform: scale(1);
+  pointer-events: none;
+}
+
+.pillar:hover .pillar__icon-ring {
+  animation: pillarPulse 1.1s var(--ease-premium) infinite;
+}
+
+@keyframes pillarPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
 }
 
 .pillar h3 {
   position: relative;
   z-index: 1;
-  margin-top: 12px;
+  margin-top: 24px;
   font-size: 26px;
   color: var(--ivory);
 }
@@ -181,19 +186,28 @@
   width: 72px;
 }
 
-/* Faint corner bracket that fades in on hover, tying the card visually
-   to the "site elevation" framing used elsewhere on the page. */
 .pillar__corner {
   position: absolute;
   z-index: 1;
-  top: 10px;
-  right: 10px;
   width: 16px;
   height: 16px;
-  border-top: 1px solid var(--brass-light);
-  border-right: 1px solid var(--brass-light);
+  border: 1px solid var(--brass-light);
   opacity: 0;
   transition: opacity var(--dur-med) var(--ease-premium);
+}
+
+.pillar__corner--tr {
+  top: 10px;
+  right: 10px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.pillar__corner--bl {
+  bottom: 10px;
+  left: 10px;
+  border-right: none;
+  border-top: none;
 }
 
 .pillar:hover .pillar__corner {
@@ -211,9 +225,5 @@
 
   .pillars__timeline {
     display: none;
-  }
-
-  .pillar__watermark {
-    font-size: 96px;
   }
 }

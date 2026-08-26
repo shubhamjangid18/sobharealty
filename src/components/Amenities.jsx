@@ -192,7 +192,7 @@ export default function Amenities() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           >
-            Eight curated experiences — crafted for wellbeing, connection, and leisure.
+            Eight curated experiences crafted for wellbeing, connection, and leisure.
           </motion.p>
         </div>
 

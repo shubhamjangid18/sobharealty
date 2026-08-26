@@ -4,9 +4,6 @@ import "./Hero.css";
 
 const headline = ["Building", "Landmarks,", "Crafted for", "Generations"];
 
-// Each slide now carries its own caption + coordinates, so the little
-// "hero__coords" tag can crossfade in new copy every time the
-// background image changes — not just the photo itself.
 const SLIDES = [
   {
     src: "https://images.unsplash.com/photo-1768069794857-9306ac167c6e?fm=jpg&q=90&w=2600&auto=format&fit=crop",
@@ -14,12 +11,17 @@ const SLIDES = [
     coords: ["25.0805° N", "55.1403° E"],
   },
   {
-    // Real Burj Khalifa night skyline (Unsplash, free license) — replaces
-    // the old daytime/highway shot with something that matches the
-    // dark, golden-hour tone of the first image.
     src: "https://images.unsplash.com/photo-1781136194181-aea44724c905?fm=jpg&q=90&w=2600&auto=format&fit=crop",
     label: "Downtown Dubai",
     coords: ["25.1972° N", "55.2744° E"],
+  },
+  {
+    // Single full-frame skyscraper at dusk — Merdeka 118 (Unsplash,
+    // free license). Adds a "hero portrait" beat between the two wider
+    // skyline shots, matching the same dark/gold palette.
+    src: "https://images.unsplash.com/photo-1764866557879-059e1db80a50?fm=jpg&q=90&w=2600&auto=format&fit=crop",
+    label: "Signature Tower",
+    coords: ["03.1466° N", "101.7106° E"],
   },
 ];
 
@@ -41,9 +43,6 @@ const line = {
 };
 
 export default function Hero() {
-  // --- Preload the first background image. Text/CTA motion only starts
-  //     once it's actually painted, so the headline never animates in
-  //     over a blank/black hero on a slow connection or fresh refresh. ---
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -52,14 +51,13 @@ export default function Hero() {
     img.src = SLIDES[0].src;
     const markLoaded = () => mounted && setLoaded(true);
     img.onload = markLoaded;
-    img.onerror = markLoaded; // fail open — never block the hero forever
+    img.onerror = markLoaded;
     if (img.complete) markLoaded();
     return () => {
       mounted = false;
     };
   }, []);
 
-  // --- Background crossfade: swap image every 5s, only once loaded ---
   const [bgIndex, setBgIndex] = useState(0);
 
   useEffect(() => {
@@ -70,7 +68,6 @@ export default function Hero() {
     return () => clearInterval(id);
   }, [loaded]);
 
-  // --- Replay motion only on: initial refresh, or scrolling UP back to top ---
   const [replayKey, setReplayKey] = useState(0);
   const wentBelowThreshold = useRef(false);
   const lastScrollY = useRef(0);
@@ -86,8 +83,6 @@ export default function Hero() {
         wentBelowThreshold.current = true;
       }
 
-      // Trigger replay only when: user had scrolled down past the hero,
-      // is now scrolling upward, and has arrived back near the top.
       if (goingUp && wentBelowThreshold.current && y < 80) {
         setReplayKey((k) => k + 1);
         wentBelowThreshold.current = false;
@@ -176,17 +171,28 @@ export default function Hero() {
             Our Philosophy
           </motion.a>
         </motion.div>
-      </div>
 
-      <motion.div
-        className="hero__scroll"
-        initial={{ opacity: 0 }}
-        animate={loaded ? { opacity: 1 } : {}}
-        transition={{ delay: 1.7, duration: 0.8 }}
-      >
-        <span className="hero__scroll-line" />
-        <span>Scroll</span>
-      </motion.div>
+        {/* Slide indicator dots — a small premium cue that this is a
+            rotating set of images, tucked under the CTAs in the same
+            left column as the rest of the text. */}
+        <motion.div
+          className="hero__dots"
+          initial={{ opacity: 0 }}
+          animate={loaded ? { opacity: 1 } : {}}
+          transition={{ delay: 1.65, duration: 0.8 }}
+        >
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.label}
+              className={i === bgIndex ? "is-active" : ""}
+              aria-label={`Show ${s.label}`}
+              onClick={() => setBgIndex(i)}
+            >
+              <span />
+            </button>
+          ))}
+        </motion.div>
+      </div>
 
       {/* Location tag — crossfades new copy every time the background
           image changes, in sync with the photo crossfade above. */}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Navbar.css";
 
 const LINKS = [
@@ -21,6 +21,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <motion.header
       className={`navbar ${scrolled ? "navbar--solid" : ""}`}
@@ -39,29 +46,36 @@ export default function Navbar() {
         </motion.a>
 
         <nav className="navbar__links">
-          {LINKS.map((link) => (
+          {LINKS.map((link, i) => (
             <motion.a
               key={link.href}
               href={link.href}
+              className="navbar__link"
               whileHover="hover"
-              style={{ position: "relative", display: "inline-block" }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 1.3 + i * 0.06 }}
             >
-              {link.label}
               <motion.span
-                variants={{
-                  hover: { scaleX: 1, opacity: 1 },
-                }}
+                className="navbar__link-label"
+                variants={{ hover: { y: -18 } }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {link.label}
+              </motion.span>
+              <motion.span
+                className="navbar__link-label navbar__link-label--ghost"
+                aria-hidden="true"
+                variants={{ hover: { y: -18 } }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {link.label}
+              </motion.span>
+              <motion.span
+                className="navbar__link-underline"
+                variants={{ hover: { scaleX: 1, opacity: 1 } }}
                 initial={{ scaleX: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: -4,
-                  height: 1,
-                  background: "currentColor",
-                  transformOrigin: "left",
-                }}
               />
             </motion.a>
           ))}
@@ -70,11 +84,13 @@ export default function Navbar() {
         <motion.a
           href="#contact"
           className="btn navbar__cta"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 1.62 }}
           whileHover={{ scale: 1.04, y: -1 }}
           whileTap={{ scale: 0.96 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
-          Enquire Now
+          <span>Enquire Now</span>
         </motion.a>
 
         <button
@@ -85,19 +101,62 @@ export default function Navbar() {
         >
           <span />
           <span />
+          <span />
         </button>
       </div>
 
-      <div className={`navbar__mobile ${open ? "is-open" : ""}`}>
-        {LINKS.map((link) => (
-          <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
-            {link.label}
-          </a>
-        ))}
-        <a href="#contact" className="btn btn-solid" onClick={() => setOpen(false)}>
-          Enquire Now
-        </a>
-      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="navbar__mobile"
+            initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
+            animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
+            exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="navbar__mobile-grid" aria-hidden="true" />
+
+            {LINKS.map((link, i) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.18 + i * 0.07 }}
+                whileHover={{ x: 8 }}
+              >
+                <span className="navbar__mobile-no">0{i + 1}</span>
+                <span>{link.label}</span>
+                <span className="navbar__mobile-arrow">↗</span>
+              </motion.a>
+            ))}
+
+            <motion.a
+              href="#contact"
+              className="btn btn-solid"
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.18 + LINKS.length * 0.07 }}
+            >
+              Enquire Now
+            </motion.a>
+
+            <motion.p
+              className="navbar__mobile-foot"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              Sobha<span>realty</span> — Dubai, UAE
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
 /* ════════════════════════════════════════════════════
    SOBHA REALTY FOOTER — STICKY SCENE ARCHITECTURE
    
@@ -30,7 +32,6 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  /* sits behind .footer which has its own stacking context */
   z-index: 0;
 }
 
@@ -46,12 +47,9 @@
   object-fit: cover;
   object-position: center 35%;
   display: block;
-  /* dark-but-not-black: construction drama still visible */
   filter: brightness(0.32) saturate(0.55);
 }
 
-/* gradient: transparent top, heavy dark bottom
-   so the footer content that slides up blends seamlessly */
 .footer-sticky-bg__gradient {
   position: absolute;
   inset: 0;
@@ -66,7 +64,6 @@
   pointer-events: none;
 }
 
-/* ── Scroll hint — vertical line + label, centered bottom ── */
 .footer-sticky-bg__hint {
   position: absolute;
   bottom: 52px;
@@ -110,21 +107,17 @@
    FOOTER CONTENT
    Negative margin-top pulls it UP so it starts
    overlapping the bottom of the sticky image.
-   Has its own solid background so it covers the image.
 ══════════════════════════════════════════ */
 .footer {
   position: relative;
-  z-index: 1;                       /* above .footer-sticky-bg */
+  z-index: 1;
   background: var(--ink, #0c0d0b);
-  /* pull up so content slides over image bottom — tweak to taste */
   margin-top: -18vh;
   padding-bottom: 0;
-  /* top rounding gives the "card sliding up" feel */
   border-radius: 18px 18px 0 0;
   box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.6);
 }
 
-/* thin brass accent line at the top edge of the sliding card */
 .footer::before {
   content: "";
   position: absolute;
@@ -144,16 +137,22 @@
 ══════════════════════════════════════════ */
 .footer__stats-bar {
   display: flex;
-  padding: 56px 0 48px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  gap: 0;
+}
+
+.footer__stats-bar--bottom {
+  grid-column: 1 / -1;
+  margin-top: -2px;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .footer__stat {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding-right: 40px;
+  gap: 6px;
+  padding: 0 30px;
   border-right: 1px solid rgba(255, 255, 255, 0.07);
 }
 
@@ -183,9 +182,9 @@
 ══════════════════════════════════════════ */
 .footer__top {
   display: grid;
-  grid-template-columns: 1fr 1.7fr;
-  gap: 60px;
-  padding: 68px 0 60px;
+  grid-template-columns: 0.9fr 2.1fr;
+  gap: 48px;
+  padding: 52px 0 34px;
 }
 
 
@@ -216,8 +215,58 @@
   max-width: 32ch;
 }
 
+/* ── CTA Group (Enquire + Subscribe) ── */
+.footer__cta-group {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Enquire Button ── */
+.footer__enquire-btn {
+  background: linear-gradient(135deg, var(--brass, #b49150), #9a7c47);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink, #0c0d0b);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(180, 145, 80, 0.2);
+  width: fit-content;
+}
+
+.footer__enquire-btn:hover {
+  background: linear-gradient(135deg, #c5a366, #a88856);
+  box-shadow: 0 12px 32px rgba(180, 145, 80, 0.35);
+}
+
+.footer__enquire-btn:active {
+  transform: scale(0.98);
+}
+
+.footer__enquire-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.footer__enquire-btn:hover svg {
+  transform: translateX(2px);
+}
+
 /* ── Subscribe ── */
-.footer__subscribe { margin-top: 34px; }
+.footer__subscribe { 
+  margin-top: 0;
+}
 
 .footer__subscribe-label {
   display: block;
@@ -291,7 +340,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--brass-light, var(--brass, #b49150));
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .footer__col ul {
@@ -300,7 +349,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 10px;
 }
 
 .footer__col-link {
@@ -335,7 +384,6 @@
   width: 100%;
 }
 
-/* external arrow icon — sits inline after the label */
 .footer__col-link-ext {
   display: inline-block;
   margin-left: 5px;
@@ -353,96 +401,183 @@
 
 
 /* ══════════════════════════════════════════
-   DIVIDER
+   DIVIDER (HIDDEN - CLEANER DESIGN)
 ══════════════════════════════════════════ */
 .footer__divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  transform-origin: left;
-  position: relative;
-  z-index: 1;
+  display: none;
 }
 
 
 /* ══════════════════════════════════════════
-   BOTTOM BAR
+   BOTTOM BAR — PREMIUM LAYOUT
 ══════════════════════════════════════════ */
 .footer__bottom {
-  padding: 26px 0 28px;
+  padding: 22px 0 0;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
 }
 
-.footer__bottom > p {
+.footer__legal {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.28);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.05em;
+  margin: 0;
+  flex: 1;
 }
 
-.footer__sep { opacity: 0.3; }
+.footer__sep { 
+  display: none;
+}
 
 .footer__legal-link {
-  color: rgba(255, 255, 255, 0.28);
-  text-decoration: none;
-  transition: color 0.25s;
+  display: none;
 }
 
-.footer__legal-link:hover {
-  color: var(--ivory, #f0ece2);
-}
 
+/* ══════════════════════════════════════════
+   PREMIUM SOCIAL ICONS
+══════════════════════════════════════════ */
 .footer__socials {
   display: flex;
-  gap: 28px;
+  gap: 14px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .footer__social-link {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.32);
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(180, 145, 80, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brass, #b49150);
   text-decoration: none;
-  transition: color 0.25s;
-  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(180, 145, 80, 0.06), rgba(180, 145, 80, 0.02));
+  backdrop-filter: blur(8px);
+}
+
+.footer__social-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(243, 239, 228, 0.15), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.footer__social-link::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 1px solid rgba(180, 145, 80, 0.1);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  z-index: 0;
 }
 
 .footer__social-link:hover {
-  color: var(--brass-light, var(--brass, #b49150));
+  border-color: rgba(180, 145, 80, 0.6);
+  background: linear-gradient(135deg, rgba(180, 145, 80, 0.12), rgba(180, 145, 80, 0.06));
+  box-shadow: 0 12px 32px rgba(180, 145, 80, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.footer__social-link:hover::before {
+  opacity: 1;
+}
+
+.footer__social-link:hover::after {
+  opacity: 0.6;
+  box-shadow: 0 0 16px rgba(180, 145, 80, 0.15);
+}
+
+.footer__social-link svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.4;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+  fill: none;
+}
+
+.footer__social-link:hover svg {
+  transform: scale(1.18) rotate(-3deg);
+  color: rgba(255, 255, 255, 1);
 }
 
 
 /* ══════════════════════════════════════════
-   CORMORANT GARAMOND — matches the reference
-   High-contrast hairline serif for SOBHA,
-   flowing italic script weight for realty.
+   CREDIT TEXT — CreadorDesigns
 ══════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+.footer__credit {
+  text-align: center;
+  padding: 16px 0 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  margin-top: 8px;
+}
+
+.footer__credit-link {
+  color: rgba(180, 145, 80, 0.7);
+  text-decoration: none;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 600;
+  position: relative;
+}
+
+.footer__credit-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 0.5px;
+  background: rgba(180, 145, 80, 0.7);
+  transition: width 0.4s ease;
+}
+
+.footer__credit-link:hover {
+  color: rgba(180, 145, 80, 1);
+}
+
+.footer__credit-link:hover::after {
+  width: 100%;
+}
+
 
 /* ══════════════════════════════════════════
-   SIGNATURE WORDMARK — bleeds off bottom
+   SIGNATURE WORDMARK
 ══════════════════════════════════════════ */
 .footer__wordmark-wrap {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  margin-top: -0.05em;
+  margin-top: 32px;
+  padding-bottom: 36px;
   line-height: 0.82;
-  /* slight left indent — not flush, not centred */
   padding-left: clamp(16px, 3.5vw, 56px);
-  /* shimmer sweep on reveal */
   --shimmer-x: -120%;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 32px;
 }
 
-/* The shimmer sweep plays once on entry via JS animation trigger
-   We drive it with the same inView motion as the wordmark */
 .footer__wordmark-wrap::after {
   content: "";
   position: absolute;
@@ -466,44 +601,42 @@
 .footer__wordmark {
   display: flex;
   align-items: baseline;
-  /* zero gap — letters optically touch like in the reference */
   gap: 0;
   white-space: nowrap;
   position: relative;
   z-index: 1;
+  flex-wrap: wrap;
 }
 
-/* ── SOBHA — Cormorant Garamond Light, wide tracking, near-ghost ivory ── */
+/* ── SOBHA — Premium Responsive sizing ── */
 .footer__wordmark-sobha {
-  font-family: 'Cormorant Garamond', var(--font-display, serif);
-  font-size: clamp(76px, 14vw, 210px);
-  font-weight: 300;           /* Light — hairline strokes like reference */
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(54px, 13vw, 220px);
+  font-weight: 300;
   font-style: normal;
-  letter-spacing: 0.01em;     /* slight open tracking, like reference */
-  color: rgba(240, 236, 226, 0.10);
-  line-height: 0.85;
-  /* stroke renders the outline before fill */
-  -webkit-text-stroke: 1px rgba(240, 236, 226, 0.18);
-  transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
-}
-
-/* ── realty — Cormorant Garamond Italic, slightly smaller, warm brass ── */
-.footer__wordmark-realty {
-  font-family: 'Cormorant Garamond', var(--font-display, serif);
-  font-size: clamp(66px, 12vw, 182px);
-  font-weight: 400;
-  font-style: italic;          /* the flowing calligraphic italic of the reference */
   letter-spacing: -0.01em;
-  color: rgba(180, 145, 80, 0.22);
-  line-height: 0.85;
-  -webkit-text-stroke: 1px rgba(180, 145, 80, 0.38);
+  color: rgba(240, 236, 226, 0.08);
+  line-height: 0.88;
+  -webkit-text-stroke: 1.2px rgba(240, 236, 226, 0.16);
   transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
-  /* shifts baseline down slightly — realty hangs lower in the reference */
-  position: relative;
-  top: 0.04em;
+  word-break: break-word;
 }
 
-/* ── Hover: both letters breathe up slightly in opacity ── */
+/* ── realty — Premium Responsive sizing ── */
+.footer__wordmark-realty {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(48px, 11.5vw, 195px);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.012em;
+  color: rgba(180, 145, 80, 0.2);
+  line-height: 0.88;
+  -webkit-text-stroke: 1.2px rgba(180, 145, 80, 0.35);
+  transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
+  position: relative;
+  top: 0.02em;
+}
+
 .footer-scene:hover .footer__wordmark-sobha {
   color: rgba(240, 236, 226, 0.14);
   -webkit-text-stroke-color: rgba(240, 236, 226, 0.24);
@@ -514,7 +647,6 @@
   -webkit-text-stroke-color: rgba(180, 145, 80, 0.50);
 }
 
-/* ── Thin brass rule above wordmark — editorial separator ── */
 .footer__wordmark-rule {
   display: block;
   width: clamp(40px, 6vw, 80px);
@@ -525,29 +657,33 @@
 
 
 /* ══════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE DESIGN
 ══════════════════════════════════════════ */
-@media (max-width: 1000px) {
+
+@media (max-width: 1200px) {
   .footer__top {
     grid-template-columns: 1fr;
     gap: 44px;
   }
-}
 
-@media (max-width: 700px) {
   .footer__cols {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 36px;
   }
+}
 
+@media (max-width: 900px) {
   .footer__stats-bar {
     flex-wrap: wrap;
-    gap: 32px 0;
-    padding: 40px 0 36px;
+    gap: 28px 0;
+  }
+
+  .footer__stats-bar--bottom {
+    margin-top: 0;
+    padding-top: 22px;
   }
 
   .footer__stat {
-    flex: 0 0 50%;
+    flex: 0 0 33.333%;
     border-right: none;
     padding-right: 0;
   }
@@ -556,51 +692,280 @@
     margin-top: -10vh;
     border-radius: 12px 12px 0 0;
   }
+
+  .footer__cta-group {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .footer__enquire-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer__subscribe-row {
+    max-width: 100%;
+  }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 768px) {
+  .footer__top {
+    gap: 32px;
+  }
+
+  .footer__stats-bar {
+    gap: 24px 0;
+  }
+
+  .footer__stats-bar--bottom {
+    margin-top: 0;
+    padding-top: 20px;
+  }
+
+  .footer__stat {
+    flex: 0 0 50%;
+  }
+
+  .footer__cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 24px;
   }
 
-  .footer__socials { gap: 18px; }
-  .footer__subscribe-row { max-width: 100%; }
-  .footer-sticky-bg__hint { display: none; }
+  .footer__legal {
+    width: 100%;
+    text-align: left;
+  }
+
+  .footer__socials {
+    width: 100%;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .footer__social-link {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer__social-link svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .footer__wordmark-sobha {
+    font-size: clamp(42px, 10vw, 160px);
+  }
+
+  .footer__wordmark-realty {
+    font-size: clamp(38px, 8vw, 140px);
+  }
+
+  .footer__wordmark-wrap {
+    margin-top: 28px;
+    padding-top: 28px;
+  }
+
+  .footer__credit {
+    padding: 16px 0 14px;
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer__stats-bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer__stats-bar--bottom {
+    margin-top: 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .footer__stat {
+    flex: 1;
+    border: none;
+    padding-right: 0;
+    border-right: none !important;
+  }
+
+  .footer__stats-bar--bottom .footer__stat {
+    padding-left: 0;
+  }
+
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer__col ul {
+    gap: 10px;
+  }
+
+  .footer__col-link-inner {
+    font-size: 13px;
+  }
+
+  .footer__brand p {
+    font-size: 12.5px;
+    max-width: 100%;
+  }
+
+  .footer__bottom {
+    gap: 14px;
+    padding: 16px 0 18px;
+    margin-top: 20px;
+  }
+
+  .footer__legal {
+    font-size: 10px;
+  }
+
+  .footer__socials {
+    width: 100%;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+
+  .footer__social-link {
+    width: 38px;
+    height: 38px;
+  }
+
+  .footer__social-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer__wordmark-wrap {
+    padding-left: 12px;
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .footer__wordmark-sobha {
+    font-size: clamp(36px, 9vw, 110px);
+  }
+
+  .footer__wordmark-realty {
+    font-size: clamp(32px, 7vw, 96px);
+  }
+
+  .footer-sticky-bg__hint {
+    display: none;
+  }
+
+  .footer__credit {
+    padding: 16px 0 14px;
+    font-size: 9px;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    margin-top: -8vh;
+  }
+
+  .footer__stats-bar {
+    padding: 0;
+    gap: 20px 0;
+  }
+
+  .footer__top {
+    padding: 34px 0 28px;
+  }
+
+  .footer__stat-val {
+    font-size: clamp(22px, 5vw, 32px);
+  }
+
+  .footer__stat-label {
+    font-size: 9px;
+  }
+
+  .footer__enquire-btn {
+    padding: 12px 20px;
+    font-size: 11px;
+  }
+
+  .footer__cols {
+    gap: 20px;
+  }
+
+  .footer__col-title {
+    margin-bottom: 14px;
+    font-size: 9.5px;
+  }
+
+  .footer__subscribe-label {
+    font-size: 9px;
+  }
+
+  .footer__bottom {
+    gap: 12px;
+    padding: 14px 0 16px;
+    margin-top: 18px;
+  }
+
+  .footer__legal {
+    font-size: 9px;
+  }
+
+  .footer__socials {
+    gap: 8px;
+  }
+
+  .footer__social-link {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer__social-link svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .footer__wordmark-wrap {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 8px;
+    padding-bottom: 28px;
+  }
+
+  .footer__wordmark-sobha {
+    font-size: clamp(28px, 7vw, 80px);
+  }
+
+  .footer__wordmark-realty {
+    font-size: clamp(24px, 6vw, 68px);
+  }
+
+  .footer__credit {
+    padding: 12px 0 10px;
+    font-size: 8px;
+    margin-top: 2px;
+  }
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .footer-sticky-bg__hint-line { animation: none; }
   .footer-sticky-bg__img { will-change: unset; }
-}
-
-
-/* ══════════════════════════════════════════
-   WORDMARK OVERRIDE — Cormorant Garamond match
-   Add this Google Font to your index.html:
-   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&display=swap" rel="stylesheet">
-══════════════════════════════════════════ */
-
-.footer__wordmark-sobha {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-style: normal;
-  font-size: clamp(72px, 13.5vw, 200px);
-  letter-spacing: -0.02em;
-  color: rgba(232, 228, 218, 0.08);
-  -webkit-text-stroke: 1px rgba(232, 228, 218, 0.15);
-  line-height: 0.88;
-}
-
-.footer__wordmark-realty {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(64px, 11.5vw, 172px);
-  letter-spacing: -0.015em;
-  color: rgba(138, 112, 64, 0.22);
-  -webkit-text-stroke: 1px rgba(138, 112, 64, 0.38);
-  line-height: 0.88;
+  .footer__enquire-btn,
+  .footer__social-link,
+  .footer__col-link-inner::after {
+    transition: none;
+  }
 }

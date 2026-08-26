@@ -1,369 +1,721 @@
 /* ════════════════════════════════════════
-   TESTIMONIALS V2  —  Coverflow Story Stage
-   Reuses the site's existing tokens:
-   --ink-soft, --ivory, --brass, --concrete,
-   --line, --font-mono, --font-display,
-   --dur-med, --ease-premium
+   TESTIMONIALS V2
+   Premium Compact Coverflow
    ════════════════════════════════════════ */
 
 .testimonials-v2 {
   position: relative;
-  padding: 140px 0 110px;
+
+  /* Shorter overall section */
+  padding: 72px 0 58px;
+
   background: var(--ink-soft);
+
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+
   overflow: hidden;
 }
 
-/* ── Soft ambient brass glow behind the header ── */
+
+/* ════════════════════════════════════════
+   AMBIENT GOLD GLOW
+════════════════════════════════════════ */
+
 .testimonials-v2__glow {
   position: absolute;
-  top: -220px;
+
+  top: -260px;
   left: 50%;
-  width: 900px;
-  height: 500px;
+
+  width: 850px;
+  height: 480px;
+
   transform: translateX(-50%);
+
   background: radial-gradient(
     ellipse at center,
-    rgba(180, 145, 80, 0.14) 0%,
-    rgba(180, 145, 80, 0.04) 45%,
+    rgba(180, 145, 80, 0.13) 0%,
+    rgba(180, 145, 80, 0.035) 45%,
     transparent 72%
   );
+
   pointer-events: none;
+
   z-index: 0;
 }
+
 
 .testimonials-v2 .container {
   position: relative;
   z-index: 1;
 }
 
-/* ══════════════════
+
+/* ════════════════════════════════════════
    HEADER
-══════════════════ */
+════════════════════════════════════════ */
+
 .testimonials-v2__head {
-  max-width: 640px;
+  width: 100%;
+  max-width: 650px;
+
   margin: 0 auto;
+
   text-align: center;
 }
 
+
 .testimonials-v2__head .eyebrow {
-  justify-content: center;
   display: flex;
+  justify-content: center;
+
+  margin: 0;
 }
 
+
 .testimonials-v2__head h2 {
-  margin-top: 22px;
-  font-size: clamp(32px, 4vw, 54px);
+  margin: 10px 0 0;
+
+  font-size: clamp(38px, 4vw, 54px);
+
   font-weight: 400;
-  line-height: 1.1;
+
+  line-height: 0.98;
+
   color: var(--ivory);
-  letter-spacing: -0.02em;
+
+  letter-spacing: -0.035em;
 }
+
 
 .testimonials-v2__head h2 em {
   font-style: italic;
+
   color: var(--brass);
 }
+
 
 .testimonials-v2__sub {
-  margin: 18px auto 0;
-  font-size: 14px;
-  line-height: 1.7;
+  max-width: 430px;
+
+  margin: 14px auto 0;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+
   color: var(--concrete);
-  max-width: 400px;
 }
 
-/* ── Small pill above the stack ── */
-.t-flag {
-  display: block;
-  width: max-content;
-  margin: 26px auto 0;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--brass);
-  padding: 7px 14px;
-  border: 1px solid rgba(180, 145, 80, 0.28);
-  border-radius: 999px;
-  background: rgba(180, 145, 80, 0.06);
-}
 
-/* ══════════════════════════════════════════
-   STAGE — 3D coverflow. No overflow/scroll
-   at all: cards are absolutely positioned and
-   move purely via transform, so there is no
-   scrollbar to hide in the first place.
-══════════════════════════════════════════ */
+/* ════════════════════════════════════════
+   COVERFLOW STAGE
+════════════════════════════════════════ */
+
 .t-stage {
   position: relative;
-  height: 430px;
-  margin-top: 56px;
-  perspective: 1600px;
+
+  /* Main height reduced */
+  height: 330px;
+
+  margin-top: 24px;
+
+  perspective: 1500px;
+
+  isolation: isolate;
 }
+
+
+/* ════════════════════════════════════════
+   TESTIMONIAL CARD
+════════════════════════════════════════ */
 
 .t-slide {
   position: absolute;
+
   top: 0;
   left: 50%;
-  width: 360px;
-  min-height: 400px;
-  padding: 26px 26px 24px;
+
+  width: 370px;
+
+  min-height: 300px;
+
+  padding: 22px 24px;
+
   border-radius: 18px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(2px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  backdrop-filter: blur(7px);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.22);
+
   text-align: left;
+
   font: inherit;
+
   color: inherit;
+
   cursor: pointer;
+
   transform:
     translateX(-50%)
     translateX(var(--x))
     rotateY(var(--rot))
     scale(var(--scale));
+
   filter: blur(var(--blur));
+
   opacity: var(--op);
+
   transition:
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease,
-    box-shadow 0.5s ease;
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
 }
+
+
+/* Active card */
 
 .t-slide--active {
   cursor: default;
-  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(180, 145, 80, 0.16);
-  border-color: rgba(180, 145, 80, 0.3);
-  background: rgba(255, 255, 255, 0.05);
+
+  border-color: rgba(180, 145, 80, 0.38);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.028)
+    );
+
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(180, 145, 80, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
+
 .t-slide:not(.t-slide--active):hover {
-  filter: blur(0.5px);
-  opacity: 0.72;
+  opacity: 0.65;
 }
+
+
+/* ════════════════════════════════════════
+   CARD HEADER
+════════════════════════════════════════ */
 
 .t-slide__top {
   display: flex;
+
   align-items: center;
+
   gap: 14px;
-  margin-bottom: 22px;
-  padding-bottom: 20px;
+
+  margin-bottom: 16px;
+
+  padding-bottom: 15px;
+
   border-bottom: 1px solid var(--line);
 }
 
+
 .t-slide__photo {
-  width: 68px;
-  height: 68px;
-  border-radius: 12px;
-  object-fit: cover;
+  width: 64px;
+  height: 64px;
+
   flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(180, 145, 80, 0.2);
+
+  border-radius: 12px;
+
+  object-fit: cover;
+
+  box-shadow:
+    0 0 0 1px rgba(180, 145, 80, 0.22),
+    0 8px 25px rgba(0, 0, 0, 0.22);
 }
+
+
+.t-slide__identity {
+  min-width: 0;
+}
+
 
 .t-slide__name {
+  margin: 0;
+
   font-family: var(--font-display);
-  font-weight: 500;
+
   font-size: 17px;
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
   color: var(--ivory);
-  line-height: 1.25;
 }
+
 
 .t-slide__meta {
-  font-size: 12px;
+  margin: 4px 0 0;
+
+  font-size: 11px;
+
+  line-height: 1.35;
+
   color: var(--concrete);
-  margin-top: 4px;
 }
 
+
 .t-slide__tag {
+  margin: 4px 0 0;
+
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.05em;
+
+  font-size: 8px;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.1em;
+
   text-transform: uppercase;
+
   color: var(--brass);
+
   opacity: 0.85;
+}
+
+
+/* ════════════════════════════════════════
+   STORY
+════════════════════════════════════════ */
+
+.t-slide__block + .t-slide__block {
+  margin-top: 12px;
+}
+
+
+.t-slide__label {
+  margin: 0 0 4px;
+
+  font-family: var(--font-mono);
+
+  font-size: 8px;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--brass);
+
+  opacity: 0.78;
+}
+
+
+.t-slide__text {
+  margin: 0;
+
+  font-size: 11.5px;
+
+  line-height: 1.55;
+
+  color: var(--ivory);
+
+  opacity: 0.78;
+}
+
+
+/* ════════════════════════════════════════
+   ARROW BUTTONS
+════════════════════════════════════════ */
+
+.t-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(180, 145, 80, 0.45);
+
+  background: rgba(17, 19, 18, 0.8);
+
+  color: var(--brass);
+
+  backdrop-filter: blur(8px);
+
+  cursor: pointer;
+
+  z-index: 30;
+
+  transform: translateY(-50%);
+
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+.t-arrow--left {
+  left: 12%;
+}
+
+
+.t-arrow--right {
+  right: 12%;
+}
+
+
+.t-arrow:hover {
+  color: var(--ivory);
+
+  border-color: var(--brass);
+
+  background: rgba(180, 145, 80, 0.12);
+
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+
+/* ════════════════════════════════════════
+   AVATAR NAVIGATION
+════════════════════════════════════════ */
+
+.t-nav {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
   margin-top: 5px;
 }
 
-.t-slide__block + .t-slide__block {
-  margin-top: 18px;
-}
-
-.t-slide__label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--brass);
-  opacity: 0.75;
-  margin-bottom: 6px;
-}
-
-.t-slide__text {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--ivory);
-  opacity: 0.82;
-}
-
-/* ── Fullscreen / expand affordance, bottom-right of the stage ── */
-.t-stage__expand {
-  position: absolute;
-  right: 6px;
-  bottom: 2px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--ink-soft);
-  color: var(--concrete);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 20;
-  transition: color 0.3s, border-color 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.t-stage__expand:hover {
-  color: var(--brass);
-  border-color: rgba(180, 145, 80, 0.4);
-  transform: scale(1.08);
-}
-
-/* ══════════════════════════════════════════
-   AVATAR NAVIGATOR — single line, always in
-   view, no scrollbar (no overflow at all).
-══════════════════════════════════════════ */
-.t-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
-}
 
 .t-nav__dot {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+
   padding: 0;
-  border: 2px solid transparent;
-  background: none;
-  cursor: pointer;
+
+  border-radius: 50%;
+
+  border: 1px solid transparent;
+
+  background: transparent;
+
   overflow: hidden;
-  opacity: 0.45;
+
+  cursor: pointer;
+
+  opacity: 0.38;
+
   transform: scale(0.86);
+
   transition:
     opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease;
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
+
 
 .t-nav__dot img {
+  display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
-  display: block;
 }
 
+
 .t-nav__dot:hover {
-  opacity: 0.8;
+  opacity: 0.75;
+
+  transform: scale(0.94);
 }
+
 
 .t-nav__dot--active {
   opacity: 1;
+
   transform: scale(1);
+
   border-color: var(--brass);
-  box-shadow: 0 0 0 3px rgba(180, 145, 80, 0.15);
+
+  box-shadow:
+    0 0 0 3px rgba(180, 145, 80, 0.11),
+    0 5px 18px rgba(0, 0, 0, 0.3);
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — TABLET (≤900px)
-══════════════════════════════════════════ */
-@media (max-width: 900px) {
+
+/* ════════════════════════════════════════
+   TABLET
+════════════════════════════════════════ */
+
+@media (max-width: 1000px) {
+
   .testimonials-v2 {
-    padding: 100px 0 80px;
+    padding: 68px 0 55px;
   }
+
 
   .t-stage {
-    height: 460px;
-    margin-top: 44px;
+    height: 330px;
   }
 
+
   .t-slide {
-    width: 320px;
+    width: 350px;
+  }
+
+
+  .t-arrow--left {
+    left: 5%;
+  }
+
+
+  .t-arrow--right {
+    right: 5%;
   }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — MOBILE (≤600px)
-   One card fills the stage; side cards tuck
-   almost fully off-frame, just enough sliver
-   showing to signal there's more either way.
-══════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════ */
+
 @media (max-width: 600px) {
+
   .testimonials-v2 {
-    padding: 76px 0 60px;
+    padding: 58px 0 45px;
   }
+
 
   .testimonials-v2__glow {
     width: 600px;
-    height: 340px;
+
+    height: 320px;
+
     top: -160px;
   }
 
-  .t-flag {
-    margin-top: 20px;
-    font-size: 9px;
-    padding: 6px 12px;
+
+  .testimonials-v2__head h2 {
+    margin-top: 9px;
+
+    font-size: 38px;
+
+    line-height: 0.98;
   }
 
+
+  .testimonials-v2__sub {
+    margin-top: 12px;
+
+    padding: 0 20px;
+
+    font-size: 11.5px;
+
+    line-height: 1.5;
+  }
+
+
   .t-stage {
-    height: 500px;
-    margin-top: 36px;
+    height: 365px;
+
+    margin-top: 20px;
+
     perspective: 900px;
   }
 
+
   .t-slide {
-    width: calc(100vw - 76px);
-    max-width: 340px;
-    min-height: 430px;
-    padding: 22px 20px 20px;
+    width: calc(100vw - 60px);
+
+    max-width: 350px;
+
+    min-height: 330px;
+
+    padding: 19px 18px;
+
+    border-radius: 16px;
   }
 
-  .t-slide__photo {
-    width: 58px;
-    height: 58px;
+
+  .t-slide__top {
+    gap: 11px;
+
+    margin-bottom: 14px;
+
+    padding-bottom: 13px;
   }
+
+
+  .t-slide__photo {
+    width: 57px;
+    height: 57px;
+
+    border-radius: 11px;
+  }
+
 
   .t-slide__name {
     font-size: 16px;
   }
 
-  .t-stage__expand {
-    right: 0;
-    bottom: -6px;
+
+  .t-slide__meta {
+    font-size: 10px;
   }
+
+
+  .t-slide__tag {
+    font-size: 7.5px;
+  }
+
+
+  .t-slide__block + .t-slide__block {
+    margin-top: 11px;
+  }
+
+
+  .t-slide__label {
+    font-size: 8px;
+  }
+
+
+  .t-slide__text {
+    font-size: 11px;
+
+    line-height: 1.52;
+  }
+
+
+  .t-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+
+  .t-arrow--left {
+    left: 2%;
+  }
+
+
+  .t-arrow--right {
+    right: 2%;
+  }
+
 
   .t-nav {
-    margin-top: 30px;
-    gap: 9px;
+    gap: 7px;
+
+    margin-top: 0;
   }
 
+
   .t-nav__dot {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
   }
 }
 
-/* Respect reduced-motion preference — keep the swap instant */
+
+/* ════════════════════════════════════════
+   SMALL PHONES
+════════════════════════════════════════ */
+
+@media (max-width: 400px) {
+
+  .testimonials-v2 {
+    padding-top: 50px;
+
+    padding-bottom: 40px;
+  }
+
+
+  .testimonials-v2__head h2 {
+    font-size: 34px;
+  }
+
+
+  .t-stage {
+    height: 350px;
+
+    margin-top: 17px;
+  }
+
+
+  .t-slide {
+    width: calc(100vw - 50px);
+
+    min-height: 315px;
+
+    padding: 17px 16px;
+  }
+
+
+  .t-slide__photo {
+    width: 53px;
+    height: 53px;
+  }
+
+
+  .t-slide__text {
+    font-size: 10.5px;
+  }
+
+
+  .t-arrow {
+    width: 33px;
+    height: 33px;
+  }
+
+
+  .t-nav__dot {
+    width: 31px;
+    height: 31px;
+  }
+}
+
+
+/* ════════════════════════════════════════
+   REDUCED MOTION
+════════════════════════════════════════ */
+
 @media (prefers-reduced-motion: reduce) {
+
   .t-slide,
   .t-nav__dot,
-  .t-stage__expand {
+  .t-arrow {
     transition: none !important;
   }
 }

@@ -3,14 +3,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import useReveal from "../hooks/useReveal";
 import "./About.css";
 
-// Moody, golden-hour construction shot — matches the "FIG. 01 — SITE
-// ELEVATION" caption and the ink/brass palette instead of a flat gradient.
 const SITE_IMAGE =
   "https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?fm=jpg&q=90&w=2000&auto=format&fit=crop";
 
-// Small hook: counts a number up from 0 once it scrolls into view, instead
-// of just appearing — gives the "27" a moment of weight rather than a
-// static stat sitting on the page.
 function useCountUp(target, active, duration = 1400) {
   const [value, setValue] = useState(0);
   const started = useRef(false);
@@ -24,7 +19,7 @@ function useCountUp(target, active, duration = 1400) {
 
     const tick = (now) => {
       const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(eased * target));
       if (progress < 1) raf = requestAnimationFrame(tick);
     };
@@ -40,8 +35,6 @@ export default function About() {
   const [ref, inView] = useReveal({ threshold: 0.25 });
   const years = useCountUp(27, inView);
 
-  // --- Subtle mouse-tilt parallax on the framed photo — a premium,
-  //     gallery-piece feel rather than a flat static image. ---
   const frameRef = useRef(null);
   const rotateXRaw = useMotionValue(0);
   const rotateYRaw = useMotionValue(0);
@@ -82,8 +75,6 @@ export default function About() {
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
           >
-            {/* Curtain-wipe reveal: the photo draws upward into frame
-                instead of just fading in. */}
             <motion.div
               className="about__photo"
               style={{ backgroundImage: `url(${SITE_IMAGE})` }}
@@ -101,8 +92,6 @@ export default function About() {
               />
             </motion.div>
 
-            {/* Roving highlight that tracks the tilt — reinforces the
-                glass/frame feel without needing a real reflection asset. */}
             <motion.div
               className="about__sheen"
               style={{
@@ -116,17 +105,6 @@ export default function About() {
 
             <span className="about__frame-corner about__frame-corner--tl" />
             <span className="about__frame-corner about__frame-corner--br" />
-            <span className="about__frame-tag">FIG. 01 — SITE ELEVATION</span>
-          </motion.div>
-
-          <motion.div
-            className="about__badge"
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span>{years}</span>
-            <p>Years of building trust across the region</p>
           </motion.div>
         </motion.div>
 
@@ -158,7 +136,7 @@ export default function About() {
             At Sobharealty, we understand that true excellence lies in the
             meticulous attention to detail and the artistry of
             craftsmanship. Guided by a commitment to perfection, we believe
-            in building not just structures but immersive experiences —
+            in building not just structures but immersive experiences
             where every nuance, from the pour of the foundation to the
             grain of the door hinge, is thoughtfully considered.
           </motion.p>
