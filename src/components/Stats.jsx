@@ -36,7 +36,7 @@ function StatItem({ stat, inView, index }) {
     stat.decimal ? stat.end * 10 : stat.end,
     {
       start: inView,
-      duration: 1400 + index * 120,
+      duration: 1600 + index * 140,
     }
   );
 
@@ -47,14 +47,16 @@ function StatItem({ stat, inView, index }) {
   return (
     <motion.article
       className="stat"
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 26 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.65,
-        delay: index * 0.08,
+        duration: 0.75,
+        delay: index * 0.1,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
+      <span className="stat__ghost">0{index + 1}</span>
+
       <div className="stat__top">
         <span className="stat__number">0{index + 1}</span>
         <span className="stat__top-line" />
@@ -90,10 +92,10 @@ export default function Stats() {
       <div className="stats__inner container">
         <motion.div
           className="stats__header"
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{
-            duration: 0.6,
+            duration: 0.7,
             ease: [0.16, 1, 0.3, 1],
           }}
         >
@@ -130,8 +132,8 @@ export default function Stats() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{
-            duration: 0.65,
-            delay: 0.4,
+            duration: 0.7,
+            delay: 0.5,
           }}
         >
           <span>EST. 1999</span>
