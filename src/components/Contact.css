@@ -1,0 +1,256 @@
+.contact {
+  position: relative;
+  min-height: 640px;
+  padding: 140px 0;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Background image layer */
+.contact__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--ink);
+}
+
+.contact__bg-img {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  background-image: url("https://images.unsplash.com/photo-1758448500688-3ababa93fd67?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+.contact__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--ink) 0%, rgba(10, 10, 10, 0.88) 35%, var(--ink-soft) 100%),
+    radial-gradient(circle at 15% 20%, rgba(0, 0, 0, 0.3), transparent 55%);
+}
+
+.contact__bg-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.contact__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(40px, 6vw, 100px);
+}
+
+.contact__info h2 {
+  margin-top: 20px;
+  font-size: clamp(30px, 3.6vw, 46px);
+}
+
+.contact__lead {
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--concrete);
+  max-width: 42ch;
+}
+
+.contact__details {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact__details li {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  cursor: default;
+}
+
+.contact__details span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-light);
+}
+
+.contact__details p {
+  margin-top: 8px;
+  font-size: 14.5px;
+  color: var(--ivory-dim);
+}
+
+/* Glass-panel form */
+.contact__form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: rgba(15, 15, 15, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  transition: color var(--dur-fast) var(--ease-premium);
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line-strong);
+  padding: 10px 2px;
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 15px;
+  transition: border-color var(--dur-fast) var(--ease-premium);
+  resize: none;
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.field select option {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.field input:focus ~ label,
+.field select:focus ~ label,
+.field textarea:focus ~ label {
+  color: var(--brass-light);
+}
+
+.field__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--brass-light);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s var(--ease-premium);
+  pointer-events: none;
+}
+
+.field input:focus ~ .field__line,
+.field select:focus ~ .field__line,
+.field textarea:focus ~ .field__line {
+  transform: scaleX(1);
+}
+
+.contact__submit {
+  position: relative;
+  margin-top: 8px;
+  align-self: flex-start;
+  border: none;
+  overflow: hidden;
+}
+
+.contact__submit span {
+  position: relative;
+  z-index: 1;
+}
+
+.contact__submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-120%);
+  transition: transform 0.6s var(--ease-premium);
+}
+
+.contact__submit:hover::before {
+  transform: translateX(120%);
+}
+
+.contact__success {
+  padding: 40px 8px;
+  text-align: left;
+}
+
+.contact__success span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--brass);
+  color: var(--brass-light);
+  font-size: 18px;
+}
+
+.contact__success h3 {
+  margin-top: 22px;
+  font-size: 26px;
+  color: var(--ivory);
+}
+
+.contact__success p {
+  margin-top: 10px;
+  color: var(--concrete);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .contact {
+    padding: 100px 0;
+    min-height: unset;
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+}

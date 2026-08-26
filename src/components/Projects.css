@@ -1,0 +1,179 @@
+.projects {
+  padding: 140px 0;
+  background: var(--ink);
+}
+
+.projects__head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 70px;
+}
+
+.projects__head h2 {
+  margin-top: 20px;
+  font-size: clamp(30px, 3.6vw, 46px);
+}
+
+.projects__intro {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--concrete);
+  max-width: 42ch;
+  justify-self: end;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--ink);
+  transition: border-color var(--dur-med) var(--ease-premium),
+    transform var(--dur-med) var(--ease-premium),
+    box-shadow var(--dur-med) var(--ease-premium);
+}
+
+.project-card:hover {
+  border-color: var(--brass-dim);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.project-card__media {
+  aspect-ratio: 4 / 5;
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-soft);
+}
+
+.project-card__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* Gradient scrim so text always reads clearly over any photo */
+.project-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.15) 0%,
+    rgba(10, 10, 10, 0.05) 35%,
+    rgba(10, 10, 10, 0.55) 78%,
+    rgba(10, 10, 10, 0.9) 100%
+  );
+  pointer-events: none;
+}
+
+/* Faint architectural grid overlay for the brand's premium graph-paper motif */
+.project-card__grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(243, 239, 228, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 228, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.project-card__no {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ivory);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.project-card__arrow {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ivory);
+  font-size: 15px;
+  background: rgba(16, 18, 16, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+.project-card__body {
+  padding: 22px 22px 26px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.project-card__body h3 {
+  font-size: 21px;
+  color: var(--ivory);
+  transition: color var(--dur-fast) var(--ease-premium);
+}
+
+.project-card:hover .project-card__body h3 {
+  color: var(--brass-light);
+}
+
+.project-card__body p {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--concrete);
+}
+
+.project-card__type {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass-light);
+  white-space: nowrap;
+  border: 1px solid var(--brass-dim);
+  padding: 6px 10px;
+}
+
+@media (max-width: 1000px) {
+  .projects__head {
+    grid-template-columns: 1fr;
+  }
+
+  .projects__intro {
+    justify-self: start;
+  }
+
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .projects {
+    padding: 100px 0;
+  }
+
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,606 @@
+/* ════════════════════════════════════════════════════
+   SOBHA REALTY FOOTER — STICKY SCENE ARCHITECTURE
+   
+   Structure:
+   .footer-scene            → scroll track (position: relative)
+     .footer-sticky-bg      → sticky 100vh image, no text
+     .footer                → normal-flow content, slides up over image
+   ════════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════
+   SCENE WRAPPER — the scroll track
+   height = sticky panel (100vh) + footer content height
+   overflow: visible so sticky works correctly
+══════════════════════════════════════════ */
+.footer-scene {
+  position: relative;
+}
+
+
+/* ══════════════════════════════════════════
+   STICKY IMAGE PANEL
+   Sits at top of scene, sticks to viewport.
+   Pure image — zero text, zero content.
+   The footer content div scrolls up OVER this.
+══════════════════════════════════════════ */
+.footer-sticky-bg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  /* sits behind .footer which has its own stacking context */
+  z-index: 0;
+}
+
+.footer-sticky-bg__img {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.footer-sticky-bg__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+  /* dark-but-not-black: construction drama still visible */
+  filter: brightness(0.32) saturate(0.55);
+}
+
+/* gradient: transparent top, heavy dark bottom
+   so the footer content that slides up blends seamlessly */
+.footer-sticky-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(12, 13, 11, 0.25)  0%,
+    rgba(12, 13, 11, 0.0)  30%,
+    rgba(12, 13, 11, 0.0)  55%,
+    rgba(12, 13, 11, 0.7)  80%,
+    rgba(12, 13, 11, 1)   100%
+  );
+  pointer-events: none;
+}
+
+/* ── Scroll hint — vertical line + label, centered bottom ── */
+.footer-sticky-bg__hint {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.footer-sticky-bg__hint-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 226, 0.45);
+}
+
+.footer-sticky-bg__hint-line {
+  width: 1px;
+  height: 52px;
+  background: linear-gradient(
+    to bottom,
+    rgba(180, 145, 80, 0.7),
+    rgba(180, 145, 80, 0)
+  );
+  animation: scrollLineDown 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes scrollLineDown {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.3; }
+}
+
+
+/* ══════════════════════════════════════════
+   FOOTER CONTENT
+   Negative margin-top pulls it UP so it starts
+   overlapping the bottom of the sticky image.
+   Has its own solid background so it covers the image.
+══════════════════════════════════════════ */
+.footer {
+  position: relative;
+  z-index: 1;                       /* above .footer-sticky-bg */
+  background: var(--ink, #0c0d0b);
+  /* pull up so content slides over image bottom — tweak to taste */
+  margin-top: -18vh;
+  padding-bottom: 0;
+  /* top rounding gives the "card sliding up" feel */
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* thin brass accent line at the top edge of the sliding card */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 2px;
+  background: var(--brass, #b49150);
+  border-radius: 0 0 2px 2px;
+  opacity: 0.7;
+}
+
+
+/* ══════════════════════════════════════════
+   STATS BAR
+══════════════════════════════════════════ */
+.footer__stats-bar {
+  display: flex;
+  padding: 56px 0 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.footer__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-right: 40px;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.footer__stat:first-child { padding-left: 0; }
+.footer__stat:last-child  { border-right: none; padding-right: 0; }
+
+.footer__stat-val {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 300;
+  color: var(--ivory, #f0ece2);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.footer__stat-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--concrete, #7a7a72);
+}
+
+
+/* ══════════════════════════════════════════
+   TOP GRID
+══════════════════════════════════════════ */
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;
+  gap: 60px;
+  padding: 68px 0 60px;
+}
+
+
+/* ══════════════════════════════════════════
+   BRAND BLOCK
+══════════════════════════════════════════ */
+.footer__logo {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ivory, #f0ece2);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.footer__logo em {
+  font-style: italic;
+  color: var(--brass-light, var(--brass, #b49150));
+}
+
+.footer__brand p {
+  margin-top: 20px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--concrete, #7a7a72);
+  max-width: 32ch;
+}
+
+/* ── Subscribe ── */
+.footer__subscribe { margin-top: 34px; }
+
+.footer__subscribe-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass, #b49150);
+  margin-bottom: 11px;
+}
+
+.footer__subscribe-row {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  max-width: 310px;
+  transition: border-color 0.3s;
+}
+
+.footer__subscribe-row:focus-within {
+  border-color: var(--brass, #b49150);
+}
+
+.footer__subscribe-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 11px 14px;
+  font-size: 13px;
+  color: var(--ivory, #f0ece2);
+  font-family: inherit;
+}
+
+.footer__subscribe-input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.footer__subscribe-btn {
+  background: var(--brass, #b49150);
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+  color: var(--ink, #0c0d0b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+  border-radius: 0 2px 2px 0;
+}
+
+.footer__subscribe-btn:hover {
+  background: var(--ivory, #f0ece2);
+}
+
+
+/* ══════════════════════════════════════════
+   NAV COLUMNS
+══════════════════════════════════════════ */
+.footer__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.footer__col-title {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass-light, var(--brass, #b49150));
+  margin-bottom: 20px;
+}
+
+.footer__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.footer__col-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.footer__col-link-inner {
+  display: block;
+  font-size: 14px;
+  color: rgba(240, 236, 226, 0.55);
+  position: relative;
+  transition: color 0.3s;
+}
+
+.footer__col-link-inner::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--brass, #b49150);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer__col-link:hover .footer__col-link-inner {
+  color: var(--ivory, #f0ece2);
+}
+
+.footer__col-link:hover .footer__col-link-inner::after {
+  width: 100%;
+}
+
+/* external arrow icon — sits inline after the label */
+.footer__col-link-ext {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
+  opacity: 0;
+  transform: translate(-2px, 2px);
+  transition: opacity 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--brass, #b49150);
+}
+
+.footer__col-link:hover .footer__col-link-ext {
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+
+
+/* ══════════════════════════════════════════
+   DIVIDER
+══════════════════════════════════════════ */
+.footer__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  transform-origin: left;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ══════════════════════════════════════════
+   BOTTOM BAR
+══════════════════════════════════════════ */
+.footer__bottom {
+  padding: 26px 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer__bottom > p {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer__sep { opacity: 0.3; }
+
+.footer__legal-link {
+  color: rgba(255, 255, 255, 0.28);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.footer__legal-link:hover {
+  color: var(--ivory, #f0ece2);
+}
+
+.footer__socials {
+  display: flex;
+  gap: 28px;
+}
+
+.footer__social-link {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.32);
+  text-decoration: none;
+  transition: color 0.25s;
+  display: inline-block;
+}
+
+.footer__social-link:hover {
+  color: var(--brass-light, var(--brass, #b49150));
+}
+
+
+/* ══════════════════════════════════════════
+   CORMORANT GARAMOND — matches the reference
+   High-contrast hairline serif for SOBHA,
+   flowing italic script weight for realty.
+══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+/* ══════════════════════════════════════════
+   SIGNATURE WORDMARK — bleeds off bottom
+══════════════════════════════════════════ */
+.footer__wordmark-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin-top: -0.05em;
+  line-height: 0.82;
+  /* slight left indent — not flush, not centred */
+  padding-left: clamp(16px, 3.5vw, 56px);
+  /* shimmer sweep on reveal */
+  --shimmer-x: -120%;
+}
+
+/* The shimmer sweep plays once on entry via JS animation trigger
+   We drive it with the same inView motion as the wordmark */
+.footer__wordmark-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent        30%,
+    rgba(255,255,255,0.045) 50%,
+    transparent        70%
+  );
+  transform: translateX(var(--shimmer-x));
+  pointer-events: none;
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+  z-index: 2;
+}
+
+.footer__wordmark-wrap.is-visible::after {
+  --shimmer-x: 120%;
+}
+
+.footer__wordmark {
+  display: flex;
+  align-items: baseline;
+  /* zero gap — letters optically touch like in the reference */
+  gap: 0;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── SOBHA — Cormorant Garamond Light, wide tracking, near-ghost ivory ── */
+.footer__wordmark-sobha {
+  font-family: 'Cormorant Garamond', var(--font-display, serif);
+  font-size: clamp(76px, 14vw, 210px);
+  font-weight: 300;           /* Light — hairline strokes like reference */
+  font-style: normal;
+  letter-spacing: 0.01em;     /* slight open tracking, like reference */
+  color: rgba(240, 236, 226, 0.10);
+  line-height: 0.85;
+  /* stroke renders the outline before fill */
+  -webkit-text-stroke: 1px rgba(240, 236, 226, 0.18);
+  transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
+}
+
+/* ── realty — Cormorant Garamond Italic, slightly smaller, warm brass ── */
+.footer__wordmark-realty {
+  font-family: 'Cormorant Garamond', var(--font-display, serif);
+  font-size: clamp(66px, 12vw, 182px);
+  font-weight: 400;
+  font-style: italic;          /* the flowing calligraphic italic of the reference */
+  letter-spacing: -0.01em;
+  color: rgba(180, 145, 80, 0.22);
+  line-height: 0.85;
+  -webkit-text-stroke: 1px rgba(180, 145, 80, 0.38);
+  transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
+  /* shifts baseline down slightly — realty hangs lower in the reference */
+  position: relative;
+  top: 0.04em;
+}
+
+/* ── Hover: both letters breathe up slightly in opacity ── */
+.footer-scene:hover .footer__wordmark-sobha {
+  color: rgba(240, 236, 226, 0.14);
+  -webkit-text-stroke-color: rgba(240, 236, 226, 0.24);
+}
+
+.footer-scene:hover .footer__wordmark-realty {
+  color: rgba(180, 145, 80, 0.30);
+  -webkit-text-stroke-color: rgba(180, 145, 80, 0.50);
+}
+
+/* ── Thin brass rule above wordmark — editorial separator ── */
+.footer__wordmark-rule {
+  display: block;
+  width: clamp(40px, 6vw, 80px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(180,145,80,0.6), transparent);
+  margin: 0 0 18px clamp(16px, 3.5vw, 56px);
+}
+
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer__cols {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 36px;
+  }
+
+  .footer__stats-bar {
+    flex-wrap: wrap;
+    gap: 32px 0;
+    padding: 40px 0 36px;
+  }
+
+  .footer__stat {
+    flex: 0 0 50%;
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .footer {
+    margin-top: -10vh;
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .footer__socials { gap: 18px; }
+  .footer__subscribe-row { max-width: 100%; }
+  .footer-sticky-bg__hint { display: none; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .footer-sticky-bg__hint-line { animation: none; }
+  .footer-sticky-bg__img { will-change: unset; }
+}
+
+
+/* ══════════════════════════════════════════
+   WORDMARK OVERRIDE — Cormorant Garamond match
+   Add this Google Font to your index.html:
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&display=swap" rel="stylesheet">
+══════════════════════════════════════════ */
+
+.footer__wordmark-sobha {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: clamp(72px, 13.5vw, 200px);
+  letter-spacing: -0.02em;
+  color: rgba(232, 228, 218, 0.08);
+  -webkit-text-stroke: 1px rgba(232, 228, 218, 0.15);
+  line-height: 0.88;
+}
+
+.footer__wordmark-realty {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(64px, 11.5vw, 172px);
+  letter-spacing: -0.015em;
+  color: rgba(138, 112, 64, 0.22);
+  -webkit-text-stroke: 1px rgba(138, 112, 64, 0.38);
+  line-height: 0.88;
+}

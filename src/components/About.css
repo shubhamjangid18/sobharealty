@@ -1,0 +1,173 @@
+.about {
+  padding: 140px 0;
+  background: var(--ink);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+
+.about__visual {
+  position: relative;
+}
+
+.about__frame {
+  position: relative;
+  border: 1px solid var(--line);
+  padding: 14px;
+  will-change: transform;
+}
+
+.about__photo {
+  aspect-ratio: 4 / 5;
+  position: relative;
+  overflow: hidden;
+  background-color: #0d0e09;
+  background-size: cover;
+  background-position: center;
+}
+
+/* The inner layer is what actually scales on hover/reveal — the outer
+   .about__photo only clips, so the zoom never leaks past the frame. */
+.about__photo-inner {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(0.25) contrast(1.08) brightness(0.85) sepia(0.12);
+}
+
+/* Duotone ink/brass grade over the photo so it reads as part of the same
+   palette as the rest of the site, not a raw stock photo. */
+.about__photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(155deg, rgba(23, 24, 15, 0.55) 0%, rgba(13, 14, 9, 0.35) 55%, rgba(13, 14, 9, 0.82) 100%);
+  mix-blend-mode: multiply;
+}
+
+.about__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(rgba(243, 239, 228, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 228, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.about__photo {
+  box-shadow: inset 0 -120px 90px -60px rgba(179, 133, 74, 0.22);
+}
+
+/* Roving light that tracks the tilt via a radial-gradient position bound
+   to the mouse — a subtle glass/frame reflection. */
+.about__sheen {
+  position: absolute;
+  inset: 14px;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.about__frame-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+  border-color: var(--brass-light);
+  opacity: 0.7;
+}
+
+.about__frame-corner--tl {
+  top: 8px;
+  left: 8px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.about__frame-corner--br {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.about__frame-tag {
+  position: absolute;
+  bottom: 26px;
+  left: 26px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ivory-dim);
+}
+
+.about__badge {
+  position: absolute;
+  right: -24px;
+  bottom: -32px;
+  background: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  padding: 22px 24px;
+  width: 190px;
+}
+
+.about__badge span {
+  font-family: var(--font-display);
+  font-size: 40px;
+  color: var(--brass-light);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.about__badge p {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--concrete);
+}
+
+.about__copy h2 {
+  margin-top: 20px;
+  font-size: clamp(30px, 3.4vw, 44px);
+  color: var(--ivory);
+}
+
+.about__copy h2 em {
+  color: var(--brass-light);
+  font-style: italic;
+}
+
+.about__lead {
+  margin-top: 26px;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ivory-dim);
+  max-width: 46ch;
+}
+
+.about__cta {
+  margin-top: 36px;
+}
+
+@media (max-width: 900px) {
+  .about {
+    padding: 100px 0;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about__badge {
+    right: 0;
+    bottom: -24px;
+  }
+}

@@ -1,0 +1,38 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.preloader__mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.preloader__mark svg {
+  width: 140px;
+  height: auto;
+}
+
+.preloader__mark span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.42em;
+  color: var(--ivory-dim);
+  padding-left: 0.42em;
+}
+
+.preloader__bar {
+  width: 220px;
+  height: 1px;
+  background: var(--brass);
+  transform-origin: left;
+}

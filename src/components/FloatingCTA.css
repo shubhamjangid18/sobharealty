@@ -1,0 +1,30 @@
+.floating-cta {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 80;
+  background: var(--brass);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  transition: transform var(--dur-fast) var(--ease-premium),
+    background var(--dur-fast) var(--ease-premium);
+}
+
+.floating-cta:hover {
+  transform: translateY(-3px);
+  background: var(--brass-light);
+}
+
+@media (max-width: 640px) {
+  .floating-cta {
+    right: 20px;
+    bottom: 20px;
+    padding: 14px 20px;
+  }
+}

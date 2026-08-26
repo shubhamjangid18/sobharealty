@@ -1,0 +1,219 @@
+.pillars {
+  padding: 140px 0;
+  background: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.pillars__head {
+  max-width: 640px;
+  margin-bottom: 56px;
+}
+
+.pillars__head h2 {
+  margin-top: 20px;
+  font-size: clamp(30px, 3.6vw, 46px);
+}
+
+/* --- Progress timeline: a thin track with a filling brass line and a dot
+   per stage, echoing "Concept to Completion" visually. --- */
+.pillars__timeline {
+  position: relative;
+  height: 1px;
+  background: var(--line);
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pillars__timeline-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--brass) 0%, var(--brass-light) 100%);
+}
+
+.pillars__timeline-dot {
+  position: relative;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brass-light);
+  box-shadow: 0 0 0 4px var(--ink-soft), 0 0 14px rgba(201, 162, 98, 0.6);
+}
+
+.pillars__timeline-dot:first-child {
+  margin-left: -3px;
+}
+
+.pillars__timeline-dot:last-child {
+  margin-right: calc(-100% + 3px);
+}
+
+.pillars__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.pillar {
+  background: var(--ink-soft);
+  padding: 44px 36px 52px;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--dur-med) var(--ease-premium),
+    box-shadow var(--dur-med) var(--ease-premium);
+  --spot-x: 50%;
+  --spot-y: 50%;
+}
+
+.pillar:hover {
+  background: #1f2119;
+  box-shadow: inset 0 1px 0 rgba(201, 162, 98, 0.25);
+}
+
+/* Cursor-tracked glow — invisible until hover, then follows the mouse
+   via the --spot-x/--spot-y custom properties set in JS. */
+.pillar__spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--spot-x) var(--spot-y),
+    rgba(201, 162, 98, 0.12),
+    transparent 65%
+  );
+  transition: opacity var(--dur-med) var(--ease-premium);
+  pointer-events: none;
+}
+
+.pillar:hover .pillar__spotlight {
+  opacity: 1;
+}
+
+/* Oversized ghost numeral behind the content — a quiet editorial texture,
+   like a page folio mark, rather than decoration for its own sake. */
+.pillar__watermark {
+  position: absolute;
+  top: -0.12em;
+  right: 12px;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-size: 128px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(243, 239, 228, 0.07);
+  pointer-events: none;
+  user-select: none;
+  transition: -webkit-text-stroke-color var(--dur-med) var(--ease-premium);
+}
+
+.pillar:hover .pillar__watermark {
+  -webkit-text-stroke-color: rgba(201, 162, 98, 0.16);
+}
+
+.pillar__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line-strong);
+  color: var(--brass-light);
+  transition: border-color var(--dur-med) var(--ease-premium),
+    transform var(--dur-med) var(--ease-premium);
+}
+
+.pillar__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pillar:hover .pillar__icon {
+  border-color: var(--brass);
+  transform: translateY(-2px);
+}
+
+.pillar__step {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brass);
+  letter-spacing: 0.1em;
+}
+
+.pillar h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+  font-size: 26px;
+  color: var(--ivory);
+}
+
+.pillar p {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--concrete);
+}
+
+.pillar__line {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  height: 1px;
+  width: 36px;
+  background: var(--brass);
+  transition: width var(--dur-med) var(--ease-premium);
+}
+
+.pillar:hover .pillar__line {
+  width: 72px;
+}
+
+/* Faint corner bracket that fades in on hover, tying the card visually
+   to the "site elevation" framing used elsewhere on the page. */
+.pillar__corner {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid var(--brass-light);
+  border-right: 1px solid var(--brass-light);
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-premium);
+}
+
+.pillar:hover .pillar__corner {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .pillars {
+    padding: 100px 0;
+  }
+
+  .pillars__list {
+    grid-template-columns: 1fr;
+  }
+
+  .pillars__timeline {
+    display: none;
+  }
+
+  .pillar__watermark {
+    font-size: 96px;
+  }
+}
