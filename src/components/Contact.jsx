@@ -5,6 +5,14 @@ import "./Contact.css";
 
 const initialForm = { name: "", email: "", phone: "", interest: "Apartments", message: "" };
 
+const PROPERTY_TYPES = [
+  { value: "Apartments", label: "Apartments" },
+  { value: "Villas", label: "Villas" },
+  { value: "Villaments", label: "Villaments" },
+  { value: "Penthouses", label: "Penthouses" },
+  { value: "Commercial", label: "Commercial" },
+];
+
 const fieldVariants = {
   hidden: { opacity: 0, y: 22 },
   visible: (i) => ({
@@ -18,15 +26,20 @@ export default function Contact() {
   const [ref, inView] = useReveal({ threshold: 0.15 });
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSelectOption = (value) => {
+    setForm((prev) => ({ ...prev, interest: value }));
+    setDropdownOpen(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Wire this up to your backend / CRM endpoint of choice.
     setSubmitted(true);
   };
 
@@ -44,6 +57,7 @@ export default function Contact() {
       </div>
 
       <div className="container contact__grid">
+        {/* ── LEFT: Info ── */}
         <motion.div
           className="contact__info"
           initial={{ opacity: 0, y: 30 }}
@@ -64,8 +78,7 @@ export default function Contact() {
           </h2>
           <p className="contact__lead">
             Share a few details and our sales team will reach out within one
-            business day with availability, pricing and a private viewing
-            slot.
+            business day with availability, pricing and a private viewing slot.
           </p>
 
           <ul className="contact__details">
@@ -90,6 +103,7 @@ export default function Contact() {
           </ul>
         </motion.div>
 
+        {/* ── RIGHT: Form ── */}
         <motion.form
           className="contact__form"
           onSubmit={handleSubmit}
@@ -128,6 +142,7 @@ export default function Contact() {
             </motion.div>
           ) : (
             <>
+              {/* Name + Phone */}
               <motion.div
                 className="contact__row"
                 custom={0}
@@ -137,16 +152,17 @@ export default function Contact() {
               >
                 <div className="field">
                   <label htmlFor="name">Full Name</label>
-                  <input id="name" name="name" required value={form.name} onChange={handleChange} />
+                  <input id="name" name="name" required value={form.name} onChange={handleChange} placeholder="Your full name" />
                   <span className="field__line" />
                 </div>
                 <div className="field">
                   <label htmlFor="phone">Phone</label>
-                  <input id="phone" name="phone" required value={form.phone} onChange={handleChange} />
+                  <input id="phone" name="phone" required value={form.phone} onChange={handleChange} placeholder="+971 50 000 0000" />
                   <span className="field__line" />
                 </div>
               </motion.div>
 
+              {/* Email */}
               <motion.div
                 className="field"
                 custom={1}
@@ -155,10 +171,11 @@ export default function Contact() {
                 animate={inView ? "visible" : "hidden"}
               >
                 <label htmlFor="email">Email</label>
-                <input id="email" type="email" name="email" required value={form.email} onChange={handleChange} />
+                <input id="email" type="email" name="email" required value={form.email} onChange={handleChange} placeholder="you@email.com" />
                 <span className="field__line" />
               </motion.div>
 
+              {/* Property Type — Custom Dropdown */}
               <motion.div
                 className="field"
                 custom={2}
@@ -166,17 +183,55 @@ export default function Contact() {
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
               >
-                <label htmlFor="interest">Property Type</label>
-                <select id="interest" name="interest" value={form.interest} onChange={handleChange}>
-                  <option>Apartments</option>
-                  <option>Villas</option>
-                  <option>Villaments</option>
-                  <option>Penthouses</option>
-                  <option>Commercial</option>
-                </select>
-                <span className="field__line" />
+                <label>Property Type</label>
+                <div
+                  className={`custom-select${dropdownOpen ? " custom-select--open" : ""}`}
+                  onClick={() => setDropdownOpen((o) => !o)}
+                  onBlur={() => setDropdownOpen(false)}
+                  tabIndex={0}
+                  role="combobox"
+                  aria-expanded={dropdownOpen}
+                  aria-haspopup="listbox"
+                >
+                  <span className="custom-select__value">{form.interest}</span>
+                  <span className="custom-select__icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                  <span className="field__line" />
+
+                  {dropdownOpen && (
+                    <motion.ul
+                      className="custom-select__menu"
+                      role="listbox"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      {PROPERTY_TYPES.map((opt) => (
+                        <li
+                          key={opt.value}
+                          role="option"
+                          aria-selected={form.interest === opt.value}
+                          className={`custom-select__option${form.interest === opt.value ? " custom-select__option--active" : ""}`}
+                          onMouseDown={(e) => { e.preventDefault(); handleSelectOption(opt.value); }}
+                        >
+                          <span>{opt.label}</span>
+                          {form.interest === opt.value && (
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          )}
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </div>
               </motion.div>
 
+              {/* Message */}
               <motion.div
                 className="field"
                 custom={3}
@@ -185,10 +240,11 @@ export default function Contact() {
                 animate={inView ? "visible" : "hidden"}
               >
                 <label htmlFor="message">Message</label>
-                <textarea id="message" name="message" rows={4} value={form.message} onChange={handleChange} />
+                <textarea id="message" name="message" rows={4} value={form.message} onChange={handleChange} placeholder="Tell us about your requirements…" />
                 <span className="field__line" />
               </motion.div>
 
+              {/* Submit */}
               <motion.button
                 type="submit"
                 className="btn btn-solid contact__submit"

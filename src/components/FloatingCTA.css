@@ -1,30 +1,180 @@
-.floating-cta {
+.floating-cta-container {
   position: fixed;
   right: 32px;
   bottom: 32px;
   z-index: 80;
-  background: var(--brass);
+  pointer-events: none;
+}
+
+.floating-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  pointer-events: auto;
+  background: linear-gradient(
+    135deg,
+    var(--brass) 0%,
+    var(--brass-light) 100%
+  );
   color: var(--ink);
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 16px 24px;
+  padding: 16px 28px;
   border-radius: 999px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  transition: transform var(--dur-fast) var(--ease-premium),
-    background var(--dur-fast) var(--ease-premium);
+  cursor: pointer;
+  user-select: none;
+  
+  /* Layered shadows for premium depth */
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.18);
+  
+  /* Subtle border for refinement */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  
+  /* Smooth transitions */
+  transition:
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Overflow hidden for highlight effect */
+  overflow: hidden;
 }
 
 .floating-cta:hover {
-  transform: translateY(-3px);
-  background: var(--brass-light);
+  background: linear-gradient(
+    135deg,
+    var(--brass-light) 0%,
+    var(--brass) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.floating-cta:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.cta-content i {
+  font-size: 14px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-cta:hover .cta-content i {
+  transform: translateX(3px);
+}
+
+/* Premium highlight/glow effect on hover */
+.cta-highlight {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.floating-cta:hover .cta-highlight {
+  opacity: 1;
+}
+
+/* Subtle floating pulse indicator */
+.floating-pulse {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brass);
+  pointer-events: none;
+  transform: translate(20%, 20%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-cta-container {
+    right: 24px;
+    bottom: 24px;
+  }
+
+  .floating-cta {
+    padding: 14px 24px;
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .cta-content i {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 640px) {
+  .floating-cta-container {
+    right: 16px;
+    bottom: 16px;
+  }
+
   .floating-cta {
-    right: 20px;
-    bottom: 20px;
-    padding: 14px 20px;
+    padding: 13px 20px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    gap: 7px;
+  }
+
+  .cta-content i {
+    font-size: 12px;
+  }
+
+  .cta-highlight {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .floating-cta,
+  .cta-content i,
+  .floating-pulse {
+    transition: none;
+    animation: none;
+  }
+
+  .floating-cta:hover {
+    transform: none;
+  }
+
+  .cta-highlight {
+    display: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .floating-cta-container {
+    display: none;
   }
 }

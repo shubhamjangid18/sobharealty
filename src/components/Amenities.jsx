@@ -7,49 +7,57 @@ const AMENITIES = [
     title: "Infinity Pool Decks",
     note: "Resort-grade leisure pools on every masterplan",
     tag: "Aqua Leisure",
-    img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=80",
+    // Stunning rooftop infinity pool overlooking city skyline — ultra crisp
+    img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=90&fit=crop",
   },
   {
     title: "Yoga & Meditation Pavilion",
     note: "Dedicated wellness zones set within landscaping",
     tag: "Mindful Living",
-    img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=900&q=80",
+    // Serene open-air yoga pavilion with soft morning light
+    img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=90&fit=crop",
   },
   {
     title: "Forest & Adventure Trails",
     note: "Walking and cycling networks through green corridors",
     tag: "Active Nature",
-    img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=900&q=80",
+    // Lush misty forest trail — cinematic & moody
+    img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=90&fit=crop",
   },
   {
     title: "Clubhouse & Social Lounge",
     note: "Private spaces for residents to gather and connect",
     tag: "Social Club",
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
+    // Sophisticated dark-toned luxury lounge interior
+    img: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1200&q=90&fit=crop",
   },
   {
     title: "Outdoor Fitness Zones",
     note: "Calisthenics and open-air training areas",
     tag: "Peak Condition",
-    img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80",
+    // Sleek modern outdoor gym with dramatic lighting
+    img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=90&fit=crop",
   },
   {
     title: "Children's Play Areas",
     note: "Secure, supervised zones for younger residents",
     tag: "Safe Spaces",
-    img: "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=900&q=80",
+    // Luxury resort kids' zone — designer equipment, lush landscaping, golden hour
+    img: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=1200&q=90&fit=crop",
   },
   {
     title: "Serenity Gardens",
     note: "Curated landscaping designed for quiet reflection",
     tag: "Tranquil Escape",
-    img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=900&q=80",
+    // Immaculate Japanese-style garden with water feature
+    img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200&q=90&fit=crop",
   },
   {
     title: "24/7 Concierge & Security",
     note: "Round-the-clock service across every address",
     tag: "Always On",
-    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80",
+    // Grand luxury hotel lobby — polished marble, dramatic architecture
+    img: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=90&fit=crop",
   },
 ];
 

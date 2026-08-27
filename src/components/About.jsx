@@ -4,7 +4,7 @@ import useReveal from "../hooks/useReveal";
 import "./About.css";
 
 const SITE_IMAGE =
-  "https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?fm=jpg&q=90&w=2000&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1761227390482-bccb032eeea6?fm=jpg&q=90&w=2000&auto=format&fit=crop";
 
 function useCountUp(target, active, duration = 1400) {
   const [value, setValue] = useState(0);
@@ -34,14 +34,20 @@ function useCountUp(target, active, duration = 1400) {
 export default function About() {
   const [ref, inView] = useReveal({ threshold: 0.25 });
   const years = useCountUp(27, inView);
+  const projects = useCountUp(180, inView);
+
+  const [hovered, setHovered] = useState(false);
 
   const frameRef = useRef(null);
   const rotateXRaw = useMotionValue(0);
   const rotateYRaw = useMotionValue(0);
-  const rotateX = useSpring(rotateXRaw, { stiffness: 220, damping: 22 });
-  const rotateY = useSpring(rotateYRaw, { stiffness: 220, damping: 22 });
+  const rotateX = useSpring(rotateXRaw, { stiffness: 200, damping: 20 });
+  const rotateY = useSpring(rotateYRaw, { stiffness: 200, damping: 20 });
   const shineX = useTransform(rotateY, [-6, 6], [20, 80]);
   const shineY = useTransform(rotateX, [6, -6], [20, 80]);
+  const shineBg = useTransform([shineX, shineY], ([x, y]) =>
+    `radial-gradient(400px circle at ${x}% ${y}%, rgba(243,239,228,0.2), transparent 62%)`
+  );
 
   const handleMouseMove = (e) => {
     const el = frameRef.current;
@@ -49,13 +55,16 @@ export default function About() {
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width - 0.5;
     const py = (e.clientY - rect.top) / rect.height - 0.5;
-    rotateYRaw.set(px * 12);
-    rotateXRaw.set(-py * 12);
+    rotateYRaw.set(px * 8);
+    rotateXRaw.set(-py * 8);
   };
+
+  const handleMouseEnter = () => setHovered(true);
 
   const handleMouseLeave = () => {
     rotateXRaw.set(0);
     rotateYRaw.set(0);
+    setHovered(false);
   };
 
   return (
@@ -70,10 +79,13 @@ export default function About() {
         >
           <motion.div
             ref={frameRef}
-            className="about__frame"
+            className={`about__frame ${hovered ? "is-hovered" : ""}`}
             onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            animate={{ y: hovered ? -5 : 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div
               className="about__photo"
@@ -85,26 +97,55 @@ export default function About() {
               <motion.div
                 className="about__photo-inner"
                 initial={{ scale: 1.22 }}
-                animate={inView ? { scale: 1 } : {}}
-                whileHover={{ scale: 1.06 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                animate={{
+                  scale: inView ? (hovered ? 1.08 : 1) : 1.22,
+                  filter: hovered
+                    ? "grayscale(0) contrast(1.05) brightness(0.97) saturate(1.12)"
+                    : "grayscale(0.15) contrast(1.12) brightness(0.88) saturate(1.05)",
+                }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 style={{ backgroundImage: `url(${SITE_IMAGE})` }}
               />
+
+              {/* diagonal light sweep on hover */}
+              <span className={`about__sweep ${hovered ? "is-active" : ""}`} aria-hidden="true" />
+
+              <motion.div
+                className="about__caption"
+                initial={{ y: "100%" }}
+                animate={{ y: hovered ? "0%" : "100%" }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="about__caption-line" />
+                <span className="about__caption-text">
+                  Site in Progress — Precision at Every Stage
+                </span>
+              </motion.div>
             </motion.div>
 
-            <motion.div
-              className="about__sheen"
-              style={{
-                background: useTransform(
-                  [shineX, shineY],
-                  ([x, y]) =>
-                    `radial-gradient(340px circle at ${x}% ${y}%, rgba(243,239,228,0.16), transparent 60%)`
-                ),
-              }}
-            />
+            <motion.div className="about__sheen" style={{ background: shineBg }} />
+          </motion.div>
 
-            <span className="about__frame-corner about__frame-corner--tl" />
-            <span className="about__frame-corner about__frame-corner--br" />
+          <motion.div
+            className="about__stat-strip"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+          >
+            <motion.div className="about__stat" whileHover={{ y: -3 }}>
+              <span className="about__stat-num">{years}+</span>
+              <span className="about__stat-label">Years of Excellence</span>
+            </motion.div>
+            <div className="about__stat-divider" />
+            <motion.div className="about__stat" whileHover={{ y: -3 }}>
+              <span className="about__stat-num">{projects}+</span>
+              <span className="about__stat-label">Projects Delivered</span>
+            </motion.div>
+            <div className="about__stat-divider" />
+            <motion.div className="about__stat" whileHover={{ y: -3 }}>
+              <span className="about__stat-num">100%</span>
+              <span className="about__stat-label">In-House Craft</span>
+            </motion.div>
           </motion.div>
         </motion.div>
 

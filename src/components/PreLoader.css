@@ -4,35 +4,279 @@
   z-index: 200;
   background: var(--ink);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  overflow: hidden;
 }
 
+/* ---------- Texture, vignette, ambient glow ---------- */
+.preloader__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.preloader__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+.preloader__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  background: radial-gradient(circle, rgba(179, 133, 74, 0.14), transparent 68%);
+  pointer-events: none;
+}
+
+.preloader__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ---------- Rotating dashed ring + monogram behind the mark ---------- */
+.preloader__ring-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.preloader__monogram {
+  width: 40px;
+  height: 40px;
+  opacity: 0.9;
+}
+
+/* ---------- Wordmark ---------- */
 .preloader__mark {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .preloader__mark svg {
   width: 140px;
   height: auto;
+  filter: drop-shadow(0 0 10px rgba(233, 201, 138, 0.25));
 }
 
-.preloader__mark span {
+.preloader__word-wrap {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.preloader__word {
+  display: flex;
   font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.42em;
+  font-size: 14px;
+  letter-spacing: 0.44em;
   color: var(--ivory-dim);
-  padding-left: 0.42em;
+  padding-left: 0.44em;
 }
 
-.preloader__bar {
-  width: 220px;
+.preloader__letter {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dim) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.preloader__shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(233, 201, 138, 0.55) 50%,
+    transparent 80%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.preloader__tagline {
+  font-family: var(--font-display, serif);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--brass-light);
+  opacity: 0.85;
+}
+
+/* ---------- Progress: brass bar, glowing dot, live counter ---------- */
+.preloader__progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.preloader__bar-track {
+  position: relative;
+  width: 240px;
   height: 1px;
-  background: var(--brass);
+  background: rgba(243, 239, 228, 0.12);
+  overflow: visible;
+}
+
+.preloader__ticks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.preloader__tick {
+  width: 1px;
+  height: 3px;
+  background: rgba(243, 239, 228, 0.18);
+}
+
+.preloader__tick:nth-child(5n + 1) {
+  height: 5px;
+  background: rgba(233, 201, 138, 0.3);
+}
+
+.preloader__bar-fill {
+  position: absolute;
+  inset: 0;
   transform-origin: left;
+  background: linear-gradient(90deg, #8a6636, #e9c98a, #b3854a);
+  box-shadow: 0 0 12px rgba(233, 201, 138, 0.5);
+}
+
+.preloader__bar-dot {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brass-light, #e9c98a);
+  box-shadow: 0 0 10px 2px rgba(233, 201, 138, 0.8);
+  transform: translate(-50%, -50%);
+}
+
+.preloader__meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.preloader__meta::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: rgba(179, 133, 74, 0.4);
+}
+
+.preloader__count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--brass-light);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__count-suffix {
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+.preloader__status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ivory-dim);
+  opacity: 0.65;
+}
+
+/* ---------- Bottom hairline seam ---------- */
+.preloader__hairline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  transform-origin: center;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(179, 133, 74, 0.7) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .preloader__ring-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+  .preloader__monogram {
+    width: 32px;
+    height: 32px;
+  }
+
+  .preloader__word {
+    font-size: 12px;
+    letter-spacing: 0.36em;
+  }
+
+  .preloader__bar-track {
+    width: 200px;
+  }
+
+  .preloader__meta {
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader__letter,
+  .preloader__bar-fill,
+  .preloader__ring {
+    transition: none !important;
+    animation: none !important;
+  }
 }

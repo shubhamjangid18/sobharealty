@@ -1,3 +1,7 @@
+/* ════════════════════════════════════════
+   CONTACT — Premium Section
+   ════════════════════════════════════════ */
+
 .contact {
   position: relative;
   min-height: 640px;
@@ -7,7 +11,7 @@
   isolation: isolate;
 }
 
-/* Background image layer */
+/* ── Background image layer ── */
 .contact__bg {
   position: absolute;
   inset: 0;
@@ -21,9 +25,14 @@
   inset: -10%;
   width: 120%;
   height: 120%;
-  background-image: url("https://images.unsplash.com/photo-1758448500688-3ababa93fd67?auto=format&fit=crop&w=1920&q=80");
+  /*
+    Premium image: Sweeping luxury high-rise interior atrium with floor-to-ceiling
+    glass, geometric ceiling, and warm amber accent lighting — architectural grandeur
+    Source: Unsplash – photo-1600607688969-a5bfcd646154 (interior architecture, Dubai-style lobby)
+  */
+  background-image: url(" https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=90&fit=crop ");
   background-size: cover;
-  background-position: center;
+  background-position: center 30%;
   background-repeat: no-repeat;
   will-change: transform;
 }
@@ -32,18 +41,19 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, var(--ink) 0%, rgba(10, 10, 10, 0.88) 35%, var(--ink-soft) 100%),
-    radial-gradient(circle at 15% 20%, rgba(0, 0, 0, 0.3), transparent 55%);
+    linear-gradient(180deg, rgba(8, 8, 8, 0.72) 0%, rgba(8, 8, 8, 0.55) 40%, rgba(12, 12, 12, 0.88) 100%),
+    radial-gradient(ellipse at 70% 0%, rgba(180, 145, 80, 0.08) 0%, transparent 55%);
 }
 
 .contact__bg-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.05;
+  opacity: 0.045;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── Grid layout ── */
 .contact__grid {
   position: relative;
   z-index: 1;
@@ -52,6 +62,9 @@
   gap: clamp(40px, 6vw, 100px);
 }
 
+/* ════════════════════
+   INFO — Left column
+════════════════════ */
 .contact__info h2 {
   margin-top: 20px;
   font-size: clamp(30px, 3.6vw, 46px);
@@ -92,18 +105,22 @@
   color: var(--ivory-dim);
 }
 
-/* Glass-panel form */
+/* ════════════════════
+   FORM — Glass panel
+════════════════════ */
 .contact__form {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 22px;
-  background: rgba(15, 15, 15, 0.55);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid var(--line-strong);
-  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  background: rgba(10, 10, 10, 0.52);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 32px 80px -24px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   padding: clamp(28px, 4vw, 44px);
 }
 
@@ -113,6 +130,9 @@
   gap: 22px;
 }
 
+/* ════════════════════
+   FIELDS
+════════════════════ */
 .field {
   position: relative;
   display: flex;
@@ -130,11 +150,10 @@
 }
 
 .field input,
-.field select,
 .field textarea {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   padding: 10px 2px;
   color: var(--ivory);
   font-family: var(--font-body);
@@ -143,48 +162,139 @@
   resize: none;
 }
 
-.field select {
-  appearance: none;
-  cursor: pointer;
-}
-
-.field select option {
-  background: var(--ink);
-  color: var(--ivory);
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(255,255,255,0.18);
+  font-size: 13.5px;
 }
 
 .field input:focus,
-.field select:focus,
 .field textarea:focus {
   border-color: transparent;
   outline: none;
 }
 
 .field input:focus ~ label,
-.field select:focus ~ label,
 .field textarea:focus ~ label {
   color: var(--brass-light);
 }
 
+/* Animated underline on focus */
 .field__line {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   height: 1px;
-  background: var(--brass-light);
+  background: linear-gradient(90deg, var(--brass), rgba(180,145,80,0.4));
   transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.4s var(--ease-premium);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 .field input:focus ~ .field__line,
-.field select:focus ~ .field__line,
 .field textarea:focus ~ .field__line {
   transform: scaleX(1);
 }
 
+/* ════════════════════════════════
+   CUSTOM SELECT DROPDOWN
+════════════════════════════════ */
+.custom-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 2px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+/* The animated gold underline — reuses .field__line placed inside .custom-select */
+.custom-select .field__line {
+  /* inherited positioning from .field__line */
+}
+
+.custom-select:focus .field__line,
+.custom-select--open .field__line {
+  transform: scaleX(1);
+}
+
+.custom-select__value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ivory);
+}
+
+/* Arrow icon — rotates when open */
+.custom-select__icon {
+  display: flex;
+  align-items: center;
+  color: var(--brass);
+  opacity: 0.7;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
+  flex-shrink: 0;
+}
+
+.custom-select--open .custom-select__icon {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Dropdown menu */
+.custom-select__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(14, 14, 14, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(180,145,80,0.18);
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.7);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  overflow: hidden;
+}
+
+.custom-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--concrete);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-select__option:hover {
+  background: rgba(180, 145, 80, 0.07);
+  color: var(--ivory);
+  padding-left: 22px;
+}
+
+.custom-select__option--active {
+  color: var(--brass-light);
+}
+
+.custom-select__option--active svg {
+  color: var(--brass);
+  flex-shrink: 0;
+}
+
+/* ════════════════════
+   SUBMIT BUTTON
+════════════════════ */
 .contact__submit {
   position: relative;
   margin-top: 8px;
@@ -202,7 +312,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.22), transparent);
   transform: translateX(-120%);
   transition: transform 0.6s var(--ease-premium);
 }
@@ -211,6 +321,9 @@
   transform: translateX(120%);
 }
 
+/* ════════════════════
+   SUCCESS STATE
+════════════════════ */
 .contact__success {
   padding: 40px 8px;
   text-align: left;
@@ -240,6 +353,9 @@
   font-size: 14px;
 }
 
+/* ════════════════════
+   RESPONSIVE
+════════════════════ */
 @media (max-width: 900px) {
   .contact {
     padding: 100px 0;
@@ -252,5 +368,35 @@
 
   .contact__row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact {
+    padding: 80px 0;
+  }
+
+  .contact__form {
+    padding: 24px 20px;
+  }
+
+  .custom-select__menu {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 20px;
+    border-radius: 8px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .contact__bg-img,
+  .custom-select__icon,
+  .custom-select__option,
+  .field__line,
+  .contact__submit::before {
+    transition: none !important;
   }
 }
