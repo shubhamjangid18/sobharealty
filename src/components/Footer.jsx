@@ -88,7 +88,6 @@ const STATS = [
   { value: "27K+",  label: "Homes Built"             },
 ];
 
-
 /* ══════════════════════════════════════════
    HELPERS
    ══════════════════════════════════════════ */
@@ -116,7 +115,6 @@ function Stat({ value, label, delay, inView }) {
     </motion.div>
   );
 }
-
 
 /* ══════════════════════════════════════════
    MAIN COMPONENT
@@ -180,7 +178,6 @@ export default function Footer() {
           {/* Eyebrow with flanking lines */}
           <div className="footer-dubai-kicker">
             <span className="footer-dubai-kicker__line" />
-            {/* <span>WELCOME TO DUBAI!</span> */}
             <span className="footer-dubai-kicker__line footer-dubai-kicker__line--right" />
           </div>
 
@@ -255,7 +252,7 @@ export default function Footer() {
                 whileTap={{ scale: 0.96 }}
                 onClick={() => scrollToSection("#contact")}
               >
-                Enquire Now
+                <span>Enquire Now</span>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M2 7h10M8 3l4 4-4 4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -264,8 +261,12 @@ export default function Footer() {
               <div className="footer__subscribe">
                 <label htmlFor="footer-email" className="footer__subscribe-label">Stay informed</label>
                 <div className="footer__subscribe-row">
-                  <input id="footer-email" type="email" placeholder="Your email address"
-                    className="footer__subscribe-input"/>
+                  <input
+                    id="footer-email"
+                    type="email"
+                    placeholder="Your email address"
+                    className="footer__subscribe-input"
+                  />
                   <button className="footer__subscribe-btn" type="button" aria-label="Subscribe">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.4"

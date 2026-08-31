@@ -1,18 +1,28 @@
 .pillars {
-  padding: 140px 0;
+  padding: 90px 0 80px;
   background: var(--ink-soft);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
 .pillars__head {
-  max-width: 640px;
-  margin-bottom: 56px;
+  max-width: 900px;
+  margin-bottom: 32px;
 }
 
 .pillars__head h2 {
-  margin-top: 20px;
-  font-size: clamp(30px, 3.6vw, 46px);
+  margin-top: 10px;
+  font-size: clamp(24px, 2.8vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .pillars__head h2 {
+    white-space: normal;
+    font-size: clamp(26px, 5vw, 34px);
+  }
 }
 
 .pillars__timeline {

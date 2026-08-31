@@ -149,8 +149,7 @@ export default function Projects() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              Landmark addresses across
-              <br /> the UAE
+              Landmark addresses across the UAE
             </motion.h2>
           </div>
           <motion.p

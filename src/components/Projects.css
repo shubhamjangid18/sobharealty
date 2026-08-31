@@ -1,6 +1,6 @@
 .projects {
   position: relative;
-  padding: 140px 0;
+  padding: 90px 0 140px;
   background: var(--ink);
   overflow: clip;
 }
@@ -25,15 +25,18 @@
 
 .projects__head {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.7fr 1fr;
   gap: 40px;
   align-items: end;
   margin-bottom: 60px;
 }
 
 .projects__head h2 {
-  margin-top: 20px;
-  font-size: clamp(30px, 3.6vw, 46px);
+  margin-top: 10px;
+  font-size: clamp(26px, 2.7vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .projects__intro {
@@ -183,6 +186,10 @@
     grid-template-columns: 1fr;
   }
 
+  .projects__head h2 {
+    white-space: normal;
+  }
+
   .projects__intro {
     justify-self: start;
   }
@@ -198,7 +205,7 @@
 
 @media (max-width: 640px) {
   .projects {
-    padding: 100px 0;
+    padding: 70px 0;
   }
 
   .projects__grid {

@@ -1,11 +1,9 @@
 /* ══════════════════════════════════════════════════════════════
-   SOBHA REALTY — FOOTER  (complete, single-file)
-   Cormorant Garamond loaded via @import below
+   SOBHA REALTY — FOOTER (ENHANCED VERSION)
    ══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
 
-/* ── Local token fallbacks (in case root vars aren't set) ── */
 :root {
   --brass:       #b49150;
   --brass-light: #cba96a;
@@ -17,18 +15,13 @@
   --font-mono:   'JetBrains Mono', 'Fira Code', monospace;
 }
 
-
-/* ══════════════════════════════════════════
-   SCENE WRAPPER
-   ══════════════════════════════════════════ */
 .footer-scene {
   position: relative;
 }
 
-
-/* ══════════════════════════════════════════
-   STICKY PANEL  — 100 vh, image + Dubai copy
-   ══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   STICKY PANEL
+   ═══════════════════════════════════════════ */
 .footer-sticky-bg {
   position: sticky;
   top: 0;
@@ -41,7 +34,6 @@
   justify-content: center;
 }
 
-/* ── Image ── */
 .footer-sticky-bg__img {
   position: absolute;
   inset: 0;
@@ -54,11 +46,9 @@
   object-fit: cover;
   object-position: center 40%;
   display: block;
-  /* vivid but dark — city lights pop */
   filter: brightness(0.38) saturate(0.72);
 }
 
-/* ── Base dark vignette ── */
 .footer-sticky-bg__gradient {
   position: absolute;
   inset: 0;
@@ -73,7 +63,6 @@
   pointer-events: none;
 }
 
-/* ── Extra cinematic vignette: dark edges left+right ── */
 .footer-dubai-overlay {
   position: absolute;
   inset: 0;
@@ -85,10 +74,9 @@
   pointer-events: none;
 }
 
-
-/* ══════════════════════════════════════════
-   DUBAI INVESTMENT COPY  (centre-stage)
-   ══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   DUBAI INVESTMENT COPY
+   ═══════════════════════════════════════════ */
 .footer-sticky-bg__copy {
   position: relative;
   z-index: 2;
@@ -100,17 +88,14 @@
   max-width: 860px;
   width: 100%;
   will-change: opacity, transform;
-  /* pointer-events off so scroll still works */
   pointer-events: none;
 }
 
-/* all interactive children re-enable pointer events */
 .footer-sticky-bg__copy a,
 .footer-sticky-bg__copy button {
   pointer-events: auto;
 }
 
-/* ── Kicker / eyebrow ── */
 .footer-dubai-kicker {
   display: flex;
   align-items: center;
@@ -147,7 +132,6 @@
   );
 }
 
-/* ── Main investment figure ── */
 .footer-dubai-investment {
   display: flex;
   flex-direction: column;
@@ -163,7 +147,6 @@
   letter-spacing: -0.03em;
   line-height: 0.9;
   color: var(--ivory);
-  /* thin text-shadow for depth on the photo */
   text-shadow:
     0 2px 40px rgba(0,0,0,0.6),
     0 0  80px rgba(180,145,80,0.18);
@@ -177,7 +160,6 @@
   color: var(--brass);
 }
 
-/* ── Gold divider rule ── */
 .footer-dubai-rule {
   display: block;
   width: clamp(48px, 8vw, 100px);
@@ -192,7 +174,6 @@
   opacity: 0.7;
 }
 
-/* ── Description ── */
 .footer-dubai-description {
   font-size: clamp(13px, 1.3vw, 16px);
   line-height: 1.75;
@@ -202,7 +183,6 @@
   letter-spacing: 0.01em;
 }
 
-/* ── Premium CTA button ── */
 .footer-dubai-cta {
   display: inline-flex;
   align-items: center;
@@ -234,10 +214,9 @@
   box-shadow: 0 0 32px rgba(180,145,80,0.22);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SCROLL HINT
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer-sticky-bg__hint {
   position: absolute;
   bottom: 44px;
@@ -288,10 +267,9 @@
   50%      { transform: translateY(4px); }
 }
 
-
-/* ══════════════════════════════════════════
-   FOOTER CARD — slides up over sticky image
-   ══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   FOOTER CARD
+   ═══════════════════════════════════════════ */
 .footer {
   position: relative;
   z-index: 1;
@@ -302,7 +280,6 @@
   box-shadow: 0 -48px 96px rgba(0,0,0,0.65);
 }
 
-/* Brass pill at top of sliding card */
 .footer::before {
   content: "";
   position: absolute;
@@ -316,10 +293,9 @@
   opacity: 0.65;
 }
 
-
-/* ══════════════════════════════════════════
-   TOP GRID  (brand + columns + stats)
-   ══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   TOP GRID
+   ═══════════════════════════════════════════ */
 .footer__top {
   display: grid;
   grid-template-columns: 1fr 1.7fr;
@@ -328,7 +304,6 @@
   padding: 72px 0 56px;
 }
 
-/* stats bar spans full width below the 2-col grid */
 .footer__stats-bar--bottom {
   grid-column: 1 / -1;
   display: flex;
@@ -336,10 +311,9 @@
   border-top: 1px solid var(--line);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    BRAND BLOCK
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__brand {
   display: flex;
   flex-direction: column;
@@ -369,7 +343,6 @@
   max-width: 30ch;
 }
 
-/* ── CTA group ── */
 .footer__cta-group {
   margin-top: 32px;
   display: flex;
@@ -377,31 +350,44 @@
   gap: 24px;
 }
 
-/* Enquire button */
+/* ═══════════════════════════════════════════
+   ENQUIRE BUTTON (ENHANCED)
+   ═══════════════════════════════════════════ */
 .footer__enquire-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 13px 26px;
+  padding: 14px 28px;
   background: var(--brass);
   color: var(--ink);
   border: none;
-  border-radius: 2px;
+  border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
   align-self: flex-start;
-  transition: background 0.3s, box-shadow 0.3s;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(180, 145, 80, 0.15);
 }
 
 .footer__enquire-btn:hover {
   background: var(--brass-light);
-  box-shadow: 0 8px 28px rgba(180,145,80,0.3);
+  box-shadow: 0 8px 28px rgba(180, 145, 80, 0.35);
+  transform: translateY(-2px);
 }
 
-/* Subscribe row */
+.footer__enquire-btn:active {
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   SUBSCRIBE
+   ═══════════════════════════════════════════ */
 .footer__subscribe-label {
   display: block;
   font-family: var(--font-mono);
@@ -416,13 +402,15 @@
   display: flex;
   align-items: stretch;
   border: 1px solid rgba(255,255,255,0.11);
-  border-radius: 3px;
+  border-radius: 6px;
   max-width: 300px;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
+  overflow: hidden;
 }
 
 .footer__subscribe-row:focus-within {
   border-color: var(--brass);
+  box-shadow: 0 0 16px rgba(180, 145, 80, 0.15);
 }
 
 .footer__subscribe-input {
@@ -430,10 +418,11 @@
   background: transparent;
   border: none;
   outline: none;
-  padding: 11px 14px;
+  padding: 12px 14px;
   font-size: 13px;
   color: var(--ivory);
   font-family: inherit;
+  min-width: 0;
 }
 
 .footer__subscribe-input::placeholder {
@@ -443,24 +432,23 @@
 .footer__subscribe-btn {
   background: var(--brass);
   border: none;
-  padding: 0 15px;
+  padding: 0 16px;
   cursor: pointer;
   color: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.25s;
-  border-radius: 0 2px 2px 0;
+  transition: all 0.25s;
+  flex-shrink: 0;
 }
 
 .footer__subscribe-btn:hover {
   background: var(--ivory);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    NAV COLUMNS
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__cols {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -521,7 +509,6 @@
   width: 100%;
 }
 
-/* external arrow */
 .footer__col-link-ext {
   opacity: 0;
   transform: translate(-2px, 2px);
@@ -535,10 +522,9 @@
   transform: translate(0,0);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    STATS BAR
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__stat {
   flex: 1;
   display: flex;
@@ -568,10 +554,9 @@
   color: var(--concrete);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    BOTTOM BAR
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__bottom {
   display: flex;
   align-items: center;
@@ -589,7 +574,6 @@
   margin: 0;
 }
 
-/* Social icons */
 .footer__socials {
   display: flex;
   align-items: center;
@@ -618,10 +602,9 @@
   background: rgba(180,145,80,0.08);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    CREDIT LINE
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__credit {
   padding: 14px 0 20px;
   font-family: var(--font-mono);
@@ -642,11 +625,9 @@
   color: var(--brass-light);
 }
 
-
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    SIGNATURE WORDMARK
-   Cormorant Garamond — matches the logo image
-   ══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 .footer__wordmark-wrap {
   position: relative;
   z-index: 1;
@@ -656,7 +637,6 @@
   --shimmer-x: -130%;
 }
 
-/* one-shot shimmer sweep on reveal */
 .footer__wordmark-wrap::after {
   content: "";
   position: absolute;
@@ -686,7 +666,6 @@
   z-index: 1;
 }
 
-/* SOBHA — hairline Light weight */
 .footer__wordmark-sobha {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(72px, 13.8vw, 208px);
@@ -699,7 +678,6 @@
   transition: color 0.8s, -webkit-text-stroke-color 0.8s;
 }
 
-/* realty — flowing italic, brass tint */
 .footer__wordmark-realty {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(64px, 11.8vw, 178px);
@@ -714,7 +692,6 @@
   transition: color 0.8s, -webkit-text-stroke-color 0.8s;
 }
 
-/* hover breath */
 .footer-scene:hover .footer__wordmark-sobha {
   color: rgba(240,236,226,0.13);
   -webkit-text-stroke-color: rgba(240,236,226,0.23);
@@ -725,7 +702,6 @@
   -webkit-text-stroke-color: rgba(180,145,80,0.48);
 }
 
-/* brass rule above wordmark */
 .footer__wordmark-rule {
   display: block;
   width: clamp(36px, 5.5vw, 76px);
@@ -734,12 +710,9 @@
   margin: 0 0 16px clamp(16px, 3.5vw, 52px);
 }
 
-
-/* ══════════════════════════════════════════
-   RESPONSIVE
-   ══════════════════════════════════════════ */
-
-/* Tablet */
+/* ═══════════════════════════════════════════
+   RESPONSIVE — TABLET
+   ═══════════════════════════════════════════ */
 @media (max-width: 1000px) {
   .footer__top {
     grid-template-columns: 1fr;
@@ -748,11 +721,18 @@
   }
 }
 
-/* Large mobile */
+/* ═══════════════════════════════════════════
+   RESPONSIVE — LARGE MOBILE (700px)
+   ═══════════════════════════════════════════ */
 @media (max-width: 700px) {
   .footer {
     margin-top: -12vh;
     border-radius: 14px 14px 0 0;
+  }
+
+  /* Hide wordmark on mobile */
+  .footer__wordmark-wrap {
+    display: none;
   }
 
   .footer__cols {
@@ -779,9 +759,30 @@
   .footer-dubai-investment__amount {
     font-size: clamp(42px, 11vw, 72px);
   }
+
+  /* Responsive enquire button */
+  .footer__enquire-btn {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Responsive subscribe */
+  .footer__subscribe-row {
+    width: 100%;
+    max-width: none;
+  }
+
+  .footer__cta-group {
+    width: 100%;
+    gap: 20px;
+  }
 }
 
-/* Small mobile */
+/* ═══════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (520px)
+   ═══════════════════════════════════════════ */
 @media (max-width: 520px) {
   .footer__bottom {
     flex-direction: column;
@@ -790,7 +791,13 @@
   }
 
   .footer__socials {
-    gap: 14px;
+    gap: 12px;
+    align-self: flex-start;
+  }
+
+  .footer__social-link {
+    width: 32px;
+    height: 32px;
   }
 
   .footer__subscribe-row {
@@ -814,11 +821,43 @@
     padding: 13px 24px;
     font-size: 10px;
   }
+
+  /* Full width button */
+  .footer__enquire-btn {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 11px;
+  }
+
+  /* Single column navigation */
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Vertical stat stacking */
+  .footer__stat {
+    flex: 1;
+    padding-right: 0;
+    border-right: none;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footer__stat:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
 }
 
-/* Reduced motion */
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .footer-sticky-bg__hint-line  { animation: none; }
   .footer-sticky-bg__hint-arrow { animation: none; }
   .footer-sticky-bg__img        { will-change: unset; }
+  .footer__enquire-btn {
+    transition: background 0.2s;
+  }
 }
