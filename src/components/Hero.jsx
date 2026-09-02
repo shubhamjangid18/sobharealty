@@ -11,15 +11,12 @@ const SLIDES = [
     coords: ["25.0805° N", "55.1403° E"],
   },
   {
-    src: "https://images.unsplash.com/photo-1781136194181-aea44724c905?fm=jpg&q=90&w=2600&auto=format&fit=crop",
+    src: "//images.unsplash.com/photo-1651467606797-e1c660cf3fda?fm=jpg&q=90&w=2600&auto=format&fit=crop",
     label: "Downtown Dubai",
     coords: ["25.1972° N", "55.2744° E"],
   },
   {
-    // Single full-frame skyscraper at dusk — Merdeka 118 (Unsplash,
-    // free license). Adds a "hero portrait" beat between the two wider
-    // skyline shots, matching the same dark/gold palette.
-    src: "https://images.unsplash.com/photo-1764866557879-059e1db80a50?fm=jpg&q=90&w=2600&auto=format&fit=crop",
+    src: "//images.unsplash.com/photo-1580674684081-7617fbf3d745?fm=jpg&q=90&w=2600&auto=format&fit=crop",
     label: "Signature Tower",
     coords: ["03.1466° N", "101.7106° E"],
   },
@@ -117,7 +114,7 @@ export default function Hero() {
       <div className="hero__vignette" />
       <div className="hero__scrim" />
 
-      <div className="hero__content container" key={replayKey}>
+      <div className="hero__content" key={replayKey}>
         <motion.h1
           variants={container}
           initial="hidden"
@@ -140,9 +137,9 @@ export default function Hero() {
         >
           <span className="hero__sub-rule" />
           <p className="hero__sub">
-            From foundation to façade, every Sobharealty residence is
-            engineered with structural precision and finished by hand — a
-            rare discipline in a city built for speed.
+            From foundation to facade.
+            Engineered with precision. Crafted with passion.
+            This is how luxury is built.
           </p>
         </motion.div>
 
@@ -172,9 +169,6 @@ export default function Hero() {
           </motion.a>
         </motion.div>
 
-        {/* Slide indicator dots — a small premium cue that this is a
-            rotating set of images, tucked under the CTAs in the same
-            left column as the rest of the text. */}
         <motion.div
           className="hero__dots"
           initial={{ opacity: 0 }}
@@ -194,8 +188,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Location tag — crossfades new copy every time the background
-          image changes, in sync with the photo crossfade above. */}
       <div className="hero__coords">
         <AnimatePresence mode="wait">
           <motion.div

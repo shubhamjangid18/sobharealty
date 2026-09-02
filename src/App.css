@@ -2,3 +2,41 @@ main {
   position: relative;
   z-index: 1;
 }
+
+/* ============================================================
+   SMOOTH SCROLL + FIXED NAVBAR OFFSET (global)
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Every section that can be a scroll target needs this offset
+   so it doesn't land hidden behind the fixed navbar. */
+#about,
+#pillars,
+#projects,
+#amenities,
+#contact {
+  scroll-margin-top: 100px;
+}
+
+@media (max-width: 900px) {
+  #about,
+  #pillars,
+  #projects,
+  #amenities,
+  #contact {
+    scroll-margin-top: 84px;
+  }
+}
+
+@media (max-width: 640px) {
+  #about,
+  #pillars,
+  #projects,
+  #amenities,
+  #contact {
+    scroll-margin-top: 76px;
+  }
+}

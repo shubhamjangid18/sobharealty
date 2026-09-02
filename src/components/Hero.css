@@ -3,7 +3,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 180px;
   overflow: hidden;
   background: var(--ink);
 }
@@ -61,9 +62,6 @@
   );
 }
 
-/* Left-column scrim — pushed slightly further right and made a touch
-   deeper so the text column stays rock-solid legible against any of the
-   three background photos, including the tall single-tower shot. */
 .hero__scrim {
   position: absolute;
   inset: 0;
@@ -107,16 +105,17 @@
   pointer-events: none;
 }
 
-/* Content column locked to the left, capped so it never drifts toward
-   center on very wide screens — keeps it a true left-aligned column. */
+/* ── KEY CHANGE: removed "container" class dependency, forced left alignment ── */
 .hero__content {
   position: relative;
   z-index: 2;
-  padding-top: 128px;
+  padding-top: 0;
   padding-bottom: 120px;
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: 0;
+  padding-left: clamp(24px, 5vw, 72px);
+  padding-right: 0;
+  max-width: 520px;
+  margin: 0;
+  text-align: left;
 }
 
 .hero h1 {
@@ -162,10 +161,11 @@
 }
 
 .hero__sub-row {
-  margin-top: 36px;
+  margin-top: 28px;
   display: flex;
-  gap: 22px;
-  max-width: 520px;
+  gap: 18px;
+  max-width: 350px;
+  align-items: flex-start;
 }
 
 .hero__sub-rule {
@@ -173,31 +173,35 @@
   width: 1px;
   margin-top: 4px;
   background: linear-gradient(var(--brass-light), transparent);
+  height: 40px;
 }
 
 .hero__sub {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 300;
-  line-height: 1.75;
+  line-height: 1.65;
   color: var(--ivory-dim);
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  margin: 0;
 }
 
 .hero__actions {
-  margin-top: 40px;
+  margin-top: 32px;
   display: flex;
-  gap: 18px;
+  gap: 14px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .hero__actions .btn {
   backdrop-filter: blur(4px);
+  font-size: 12px;
+  padding: 11px 24px;
+  border-radius: 0;
 }
 
-/* Slide dots — small, quiet, sits directly under the CTAs in the same
-   left column instead of floating separately on the page. */
 .hero__dots {
-  margin-top: 48px;
+  margin-top: 32px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -212,8 +216,8 @@
 
 .hero__dots button span {
   display: block;
-  width: 26px;
-  height: 2px;
+  width: 20px;
+  height: 1.5px;
   border-radius: 2px;
   background: rgba(243, 239, 228, 0.25);
   transition: background var(--dur-fast) var(--ease-premium), width var(--dur-fast) var(--ease-premium);
@@ -254,6 +258,7 @@
 @media (max-width: 900px) {
   .hero__content {
     max-width: 100%;
+    padding-left: clamp(20px, 4vw, 40px);
   }
 }
 
@@ -262,8 +267,12 @@
     display: none;
   }
 
+  .hero {
+    padding-top: 140px;
+  }
+
   .hero__content {
-    padding-top: 120px;
+    padding-left: 20px;
   }
 
   .hero__scrim {
